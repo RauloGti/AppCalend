@@ -1,0 +1,7 @@
+{
+  "name": "CalendAap",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
