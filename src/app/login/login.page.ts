@@ -20,5 +20,13 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-
+  //funcion login para conectar "logica" y validar los datos
+  login(){
+    if(this.form.valid){
+      const{email, password} = this.form.getRawValue();
+      console.log(email,password);
+    } else {
+      this.form.markAllAsTouched();
+    }
+  }
 }
