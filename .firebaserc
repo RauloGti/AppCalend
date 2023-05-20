@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "calendaap-66dde": {
+      "hosting": {
+        "app": [
+          "calendapp"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "calendaap-66dde"
+  }
+}
