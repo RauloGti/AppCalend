@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -20,17 +21,18 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService : AuthService,
-    private router : Router
+    private router : Router,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
   }
-  //funcion login para conectar "logica" y validar los datos
+  //funcion login para conectar "logica" y validar los datos, importado desde firebase. con el AuthService.y el router para que diga donde redireccionar una vez ingresado al login.s
   login() {
     if (this.form.valid) {
       const { email, password } = this.form.getRawValue();
       if (email && password) { // Verificar si email y password no son null
-        this.auth.register(email, password)
+        this.authService.login(email, password)
           .then(() => {
             this.router.navigate(['/home']);
           })
@@ -42,6 +44,22 @@ export class LoginPage implements OnInit {
       this.form.markAllAsTouched();
     }
   }
+  //funcion que muestra un popup con un mensaje de espera al ingreso del sistema, vinculado al boton de login.
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Ingresando al Sistema, esto puede demorar unos segundos...',
+      duration: 3000
+    });
+  
+    await loading.present();
+  
+    // Simular una tarea asincrónica (por ejemplo, una llamada a la API)
+    // Puedes reemplazar esto con tu lógica de inicio de sesión
+    setTimeout(() => {
+      loading.dismiss();
+    }, 3000);
+  }
+}
   /*
   login(){
     if(this.form.valid){
@@ -56,5 +74,6 @@ export class LoginPage implements OnInit {
     } else {
       this.form.markAllAsTouched();
     }
-  }*/
+  }
 }
+*/

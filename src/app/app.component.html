@@ -12,17 +12,14 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="logout()">
+              <ion-icon slot="start" icon="log-out"></ion-icon>
+              <ion-label>Cerrar Sesion</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
+        </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
