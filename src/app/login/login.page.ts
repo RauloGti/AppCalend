@@ -3,6 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
 
 @Component({
   selector: 'app-login',
@@ -44,6 +48,32 @@ export class LoginPage implements OnInit {
       this.form.markAllAsTouched();
     }
   }
+
+  loginWithGoogle(){
+    signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    if (credential != null){
+      const token = credential.accessToken;
+      // The signed-in user info.
+    }
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+    this.router.navigate(['/home']);
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+  }
+
   //funcion que muestra un popup con un mensaje de espera al ingreso del sistema, vinculado al boton de login.
   async showLoading() {
     const loading = await this.loadingController.create({

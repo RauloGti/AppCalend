@@ -24,5 +24,9 @@
         <ion-button expand="block" routerLink="/register" type="button" class="btnRegister">Register</ion-button>
       </ion-col>
     </ion-row>
+    <ion-button expand="full" color="danger" class="custom-button" (click)="loginWithGoogle()">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Iniciar sesión con Google
+    </ion-button>
   </form>
 </ion-content>
