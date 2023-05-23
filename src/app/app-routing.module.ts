@@ -6,7 +6,7 @@ import { AuthGuard } from '@angular/fire/auth-guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -24,6 +24,7 @@ const routes: Routes = [
   {
     path: 'home',
     canActivate:[AuthGuard],
+    //Comando para asegurar las rutas.
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   }
 ];

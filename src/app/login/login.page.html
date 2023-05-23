@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="black">
     <ion-title class="ion-text-center"> CalendAap - Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <form [formGroup]="form" novalidate (ngSubmit)="login()">
-    <ion-list>
+    <ion-list >
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
         <ion-input formControlName="email"></ion-input>
@@ -21,7 +21,7 @@
         <ion-button expand="block" type="submit" (click)="showLoading()">Login</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" routerLink="/register" type="button"color="secondary">Register</ion-button>
+        <ion-button expand="block" routerLink="/register" type="button" class="btnRegister">Register</ion-button>
       </ion-col>
     </ion-row>
   </form>
