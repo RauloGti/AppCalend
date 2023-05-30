@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- <ion-title class="ion-text-center">Iniciar sesión</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- <form [formGroup]="form" novalidate (ngSubmit)="login()">
+    <ion-list >
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" type="submit" (click)="showLoading()">Login</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" routerLink="/register" type="button" class="btnRegister">Register</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-button expand="full" color="danger" class="custom-button" (click)="loginWithGoogle()">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Iniciar sesión con Google
+    </ion-button>
+  </form> -->
+
+  <ion-card class="ion-no-margin">
+    <ion-img src="assets/images/header.png"></ion-img>
+    <ion-card-header>
+      <ion-card-title>Bienvenido!</ion-card-title>
+      <ion-card-subtitle class="ion-text-lowercase">Somos CaldendApp, tu sistema de gestion de turnos</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="signin-btns">
+        <ion-button fill="solid" shape="round" class="loginbtn">Iniciar sesión</ion-button>
+        <ion-button fill="outline" shape="round" color="dark"> Registrarse</ion-button>
+      </div>
+
+      <div class="text-tag">
+         <span>O registrate con tu cuenta</span>
+      </div>
+
+      <div class="social-btns">
+        <ion-button shape="round" color="danger">
+          <ion-icon slot="start" name="logo-google"></ion-icon>
+        </ion-button>
+        <!-- <ion-button shape="round" color="facebookbtn">
+          <ion-icon slot="start" name="logo-facebook"></ion-icon>
+        </ion-button> -->
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

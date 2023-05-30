@@ -7,7 +7,7 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'loginscreen',
     pathMatch: 'full'
   },
   {
@@ -28,7 +28,12 @@ const routes: Routes = [
     data: { AuthGuardPipe : redirectUnauthorizedToLogin },
     //Comando para asegurar las rutas.
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'loginscreen',
+    loadChildren: () => import('./loginscreen/loginscreen.module').then( m => m.LoginscreenPageModule)
   }
+
 ];
 
 @NgModule({

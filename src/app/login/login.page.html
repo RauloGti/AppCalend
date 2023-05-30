@@ -1,32 +1,49 @@
-<ion-header>
-  <ion-toolbar color="black">
-    <ion-title class="ion-text-center"> CalendAap - Login</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- <ion-title>loginscreen</ion-title> -->
   </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaulthref="login" text=""></ion-back-button>
+  </ion-buttons>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="form" novalidate (ngSubmit)="login()">
-    <ion-list >
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
-      </ion-item>
-    </ion-list>
-    <ion-row>
-      <ion-col>
-        <ion-button expand="block" type="submit" (click)="showLoading()">Login</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button expand="block" routerLink="/register" type="button" class="btnRegister">Register</ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-button expand="full" color="danger" class="custom-button" (click)="loginWithGoogle()">
-      <ion-icon name="logo-google" slot="start"></ion-icon>
-      Iniciar sesión con Google
-    </ion-button>
-  </form>
+  <ion-card class="ion-no-margin">
+    <ion-img src="assets/images/header1.png"></ion-img>
+
+    <ion-card-content>
+      <form [formGroup]="form" novalidate (ngSubmit)="login()" class="wrapform">
+        <ion-item>
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input formControlName="email" placeholder="Email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input type="password" formControlName="password" placeholder="Contraseña" required></ion-input>
+        </ion-item>
+      </form>
+
+      <div class="password_forgot">
+        <ion-button fill="clear" class="ion-no-padding">Olvidsaste tu contraseña?</ion-button>
+      </div>
+
+      <div class="sign-btn-wrap">
+        <ion-button shape="round" fill="solid" class="sign-btn" type="submit" (click)="showLoading()">Iniciar sesión</ion-button>
+      </div>
+
+      <div class="text-tag">
+        <span>O Inicia sesión con tu cuenta</span>
+      </div>
+
+      <div class="social-btns">
+       <ion-button shape="round" color="danger" (click)="loginWithGoogle()">
+         <ion-icon slot="start" name="logo-google"></ion-icon>
+       </ion-button>
+      </div>
+
+      <div class="ion-card-footer">
+        <span>No tenes cuenta aún?</span><button class="ion-no-padding">Registrate</button> 
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
