@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 //funcion que redirecciona sin sesion iniciada, al login. para autentificarse.
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+//const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const routes: Routes = [
   {
     path: '',
@@ -25,14 +25,19 @@ const routes: Routes = [
   {
     path: 'home',
     canActivate:[AuthGuard],
-    data: { AuthGuardPipe : redirectUnauthorizedToLogin },
+    //data: { AuthGuardPipe : redirectUnauthorizedToLogin },
     //Comando para asegurar las rutas.
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'loginscreen',
     loadChildren: () => import('./loginscreen/loginscreen.module').then( m => m.LoginscreenPageModule)
+  },
+  {
+    path: 'forgotpassword',
+    loadChildren: () => import('./forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
   }
+
 
 ];
 

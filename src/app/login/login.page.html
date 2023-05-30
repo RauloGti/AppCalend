@@ -3,7 +3,7 @@
     <!-- <ion-title>loginscreen</ion-title> -->
   </ion-toolbar>
   <ion-buttons slot="start">
-    <ion-back-button defaulthref="login" text=""></ion-back-button>
+    <ion-back-button defaulthref="loginscreen" text=""></ion-back-button>
   </ion-buttons>
 </ion-header>
 
@@ -24,11 +24,11 @@
       </form>
 
       <div class="password_forgot">
-        <ion-button fill="clear" class="ion-no-padding">Olvidaste tu contraseña?</ion-button>
+        <ion-button fill="clear" class="ion-no-padding" routerLink="/forgotpassword">Olvidaste tu contraseña?</ion-button>
       </div>
 
       <div class="sign-btn-wrap">
-        <ion-button shape="round" fill="solid" class="sign-btn" type="submit" (click)="showLoading()">Iniciar sesión</ion-button>
+        <ion-button shape="round" fill="solid" class="sign-btn" type="submit" (click)="login()">Iniciar sesión</ion-button>
       </div>
 
       <div class="text-tag">
@@ -42,7 +42,7 @@
       </div>
 
       <div class="ion-card-footer">
-        <span>No tenes cuenta aún?</span><button class="ion-no-padding">Registrate</button> 
+        <span>No tenes cuenta aún?</span><button class="ion-no-padding" routerLink="/register">Registrate</button> 
       </div>
     </ion-card-content>
   </ion-card>
