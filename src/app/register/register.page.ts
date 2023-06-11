@@ -40,12 +40,12 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
-  //funcion login para conectar "logica" y validar los datos
-  
 
-  register() {
+    //funcion login para conectar "logica" y validar los datos
+    register() {
     if (this.form.valid) {
       const { email, password } = this.form.getRawValue();
+      //validar que pass y repass sean iguales
       if (email && password  ) { // Verificar si email y password no son null
         this.auth.register(email, password, )
         

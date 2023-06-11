@@ -62,6 +62,9 @@ export class LoginPage implements OnInit {
             } else if (error.code === 'auth/invalid-email') {
               mensaje = 'Correo electrónico inválido. Por favor, verifica tus credenciales.';
             }
+            else if (error.code === 'auth/null-password') {
+              mensaje = 'Escribe un contraseña';
+            }
             this.mostrarError(mensaje)
           });
       }

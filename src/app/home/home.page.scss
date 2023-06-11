@@ -1,14 +1,48 @@
-ion-content{
-    --background: lightgray;
+ion-header{
+    position: absolute;
+    ion-buttons{
+        margin: 10px;
+    }
 }
-.boton{
-    margin: 80px;
+
+ion-toolbar{
+    --ion-background-color: transparent;
+    opacity: 0;
+}
+
+ion-card{
+    --ion-background-color:transparent;
+    box-shadow: none;
+    height: 100%;
+}
+
+ion-card-title{
+    margin-top: 40px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.div-btns{
+    text-align: center;
+    padding-top: 25px;
+    .home-btn{
+        width: 150px;
+        margin: 50px;
+        font-size: 15px;
+        font-weight: 400;
+        height: 40px;
+    }
+}
+
+// .boton{
+//     margin: 80px;
     
    
     
-}
-ion-button{
-    --background: darkgray ;
-    color: black;
+// }
+// ion-button{
+//     --background: darkgray ;
+//     color: black;
     
-}
+// }
