@@ -12,7 +12,6 @@
       <ion-card-title>Registrate</ion-card-title>
       <ion-card-subtitle>Crea una cuenta y organizar tus consultas sera mas fácil</ion-card-subtitle>
     </ion-card-header>
-
     <ion-card-content>
       <form [formGroup]="form" novalidate (ngSubmit)="register()">
         <ion-item>
@@ -27,9 +26,11 @@
           <ion-icon name="lock-closed-outline"></ion-icon>
           <ion-input type="password" formControlName="confirmPassword" placeholder="Confirmar contraseña" required></ion-input>
         </ion-item>
-
+        <ion-note *ngIf="form.hasError('passwordMismatch') && form.get('confirmPassword')?.touched">
+          Las contraseñas no coinciden.
+        </ion-note>
         <div class="sign-btn-wrap">
-          <ion-button type="submit" shape="round" fill="solid" class="sign-btn"  (click)="register()">Registrarse</ion-button>
+          <ion-button type="submit" shape="round" fill="solid" class="sign-btn"  (click)="register()" [disabled]="!form.valid">Registrarse</ion-button>
         </div>
       </form>
     </ion-card-content>
