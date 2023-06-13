@@ -36,7 +36,28 @@ const routes: Routes = [
   {
     path: 'forgotpassword',
     loadChildren: () => import('./forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
+  },
+  {
+    path: 'patients',
+    loadChildren: () => import('./patients/patients.module').then( m => m.PatientsPageModule)
+  },
+  {
+    path: 'assignturn',
+    loadChildren: () => import('./assignturn/assignturn.module').then( m => m.AssignturnPageModule)
+  },
+  {
+    path: 'createpatient',
+    loadChildren: () => import('./createpatient/createpatient.module').then( m => m.CreatepatientPageModule)
+  },
+  {
+    path: 'annotator',
+    loadChildren: () => import('./annotator/annotator.module').then( m => m.AnnotatorPageModule)
+  },  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
   }
+
+
 
 
 ];

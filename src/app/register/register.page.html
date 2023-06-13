@@ -1,6 +1,5 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-    <!-- <ion-title class="ion-text-center"> CalendAap - Register</ion-title> -->
   </ion-toolbar>
   <ion-buttons slot="start">
     <ion-back-button defaulthref="loginscreen" text=""></ion-back-button>
@@ -8,30 +7,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- <form [formGroup]="form" novalidate (ngSubmit)="register()">
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Confirm Password</ion-label>
-        <ion-input type="password" formControlName="confirmPassword"></ion-input>
-      </ion-item>
-    </ion-list>
-    <ion-row>
-      <ion-col>
-        <ion-button expand="block" routerLink="/login" routerDirection="back" type="button">Login</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button expand="block" type="submit" color="secondary">Register</ion-button>
-      </ion-col>
-    </ion-row>
-  </form> -->
   <ion-card class="ion-no-margin">
     <ion-card-header>
       <ion-card-title>Registrate</ion-card-title>
@@ -56,25 +31,6 @@
         <div class="sign-btn-wrap">
           <ion-button type="submit" shape="round" fill="solid" class="sign-btn"  (click)="register()">Registrarse</ion-button>
         </div>
-
-        <!-- <div class="text-tag">
-          <span>O registrate con tu cuenta</span>
-        </div> -->
-  
-        <!-- <div class="social-btns">
-         <ion-button shape="round" color="danger">
-           <ion-icon slot="start" name="logo-google"></ion-icon>
-         </ion-button>
-        </div> -->
-
-        <!-- <ion-row>
-          <ion-col>
-            <ion-button expand="block" routerLink="/login" routerDirection="back" type="button">Login</ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button expand="block" type="submit" color="secondary">Register</ion-button>
-          </ion-col>
-        </ion-row> -->
       </form>
     </ion-card-content>
   </ion-card>

@@ -9,34 +9,20 @@
 
 
 <ion-content class="ion-padding">
-  <!-- <ion-grid>
-    <ion-row justify-content-center align-items-center>
-      <ion-col size="12" class="colCenter">
-        <ion-button expand="full" size="large" class="boton">Pacientes</ion-button>
-      </ion-col>
-      <ion-col size="12" class="colCenter">
-        <ion-button expand="full" size="large" class="boton">Turnos</ion-button>
-      </ion-col>
-      <ion-col size="12" class="colCenter">
-        <ion-button expand="full" size="large" class="boton">Anotador</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
   <ion-card class="ion-no-margin">
     <ion-card-header>
       <ion-card-title>Inicio</ion-card-title>
-      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-subtitle>Consultas restantes el día de hoy: </ion-card-subtitle>
     </ion-card-header>
 
-  <ion-card-content>
-    <form>
-      <div class="div-btns">
-        <ion-button shape="round" fill="solid" class="home-btn">Pacientes</ion-button>
-        <ion-button shape="round" fill="solid" class="home-btn">Turnos</ion-button>
-        <ion-button shape="round" fill="solid" class="home-btn">Anotador</ion-button>
-      </div>
-    </form>
-  </ion-card-content>
+    <ion-card-content>
+      <form>
+        <div class="div-btns">
+          <ion-button shape="round" fill="solid" class="home-btn" routerLink="/patients">Pacientes</ion-button>
+          <ion-button shape="round" fill="solid" class="home-btn" routerLink="/calendar">Agenda</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
   </ion-card>
 
   

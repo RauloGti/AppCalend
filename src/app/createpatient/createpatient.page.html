@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Crear un paciente</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button default-href="loginscreen" text=""></ion-back-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-no-margin">
+    <ion-card-header>
+      <ion-card-title>Crear un paciente</ion-card-title>
+      <ion-card-subtitle>Crea un paciente y gestiónalo desde la App!</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form>
+        <ion-item>
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-input placeholder="Nombre" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-input placeholder="Apellido" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="card-outline"></ion-icon>
+          <ion-input placeholder="Documento" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="calendar-outline"></ion-icon>
+          <ion-input placeholder="Edad" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input placeholder="Correo electrónico" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-input placeholder="Número de teléfono" required></ion-input>
+        </ion-item>
+      </form>
+
+      <div class="btn-wrap">
+        <ion-button type="submit" shape="round" fill="solid" class="save-btn">Guardar</ion-button>
+        <ion-button fill="outline" shape="round" color="dark">Cancelar</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
