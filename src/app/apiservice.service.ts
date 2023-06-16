@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { google } from 'googleapis';
+/*import { Injectable } from '@angular/core';
+import { google, calendar_v3 } from 'googleapis';
+import { Observable, from } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,25 +33,20 @@ export class ApiserviceService {
   }
 
   // Método para obtener los eventos del calendario
-  async getEvents() {
+  getEvents(): Observable<calendar_v3.Schema$Event[]> {
     const calendar = google.calendar({ version: 'v3', auth: this.authClient });
 
     try {
-      // Realizar la solicitud para obtener los eventos
-      const response = await calendar.events.list({
+      // Realizar la solicitud para obtener los eventos y convertir la Promise en un Observable
+      return from(calendar.events.list({
         calendarId: 'calendaap@gmail.com'
-      });
-
-      // Obtener los eventos de la respuesta
-      const events = response.data.items;
-      
-      // Manejar los eventos como desees
-      console.log(events);
-      
-      return events;
+      })).pipe(
+        map((response: any) => response.data.items)
+      );
     } catch (error) {
       console.error('Error al obtener los eventos:', error);
       throw error;
     }
   }
 }
+*/

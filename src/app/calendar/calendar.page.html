@@ -25,8 +25,13 @@
         </div>
         
         <ion-list>
-          <!-- Lista de turnos -->
+          <ng-container *ngIf="events | async as eventList">
+            <ion-item *ngFor="let event of eventList">
+              <!-- Mostrar detalles del evento -->
+            </ion-item>
+          </ng-container>
         </ion-list>
+        <button (click)="getEvents()">Obtener Eventos</button>
 
         <div class="re-btn-wrap">
           <ion-button class="turn-btn" routerLink="/assignturn">
