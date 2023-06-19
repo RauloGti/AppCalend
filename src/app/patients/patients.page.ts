@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, doc, getDoc, getFirestore, deleteDoc } from '@angular/fire/firestore';
 import { getDocs } from 'firebase/firestore';
-import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
-import { idToken } from '@angular/fire/auth';
+import { CallNumber } from 'capacitor-call-number';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-patients',
@@ -11,17 +10,16 @@ import { idToken } from '@angular/fire/auth';
   styleUrls: ['./patients.page.scss'],
 })
 export class PatientsPage implements OnInit {
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore, private modalController: ModalController) {}
 
   ngOnInit() {}
 
   pacientes: { nombre: string, apellido: string, correo: string, dni: string, numero: string, edad: string }[] = [];
   datos: any;
   searchTerm: string = '';
-  pacienteSeleccionado: any=null;
- 
-  //funcion que a traves de ionic cuando esta cargada la pantalla ejecuta el codigo
-  async ionViewDidEnter(){
+  pacienteSeleccionado: any = null;
+
+  async ionViewDidEnter() {
     try {
       console.log("trajo la informacion")
       const db = getFirestore();
@@ -30,9 +28,9 @@ export class PatientsPage implements OnInit {
 
       querySnapshot.forEach((doc) => {
         const datos = doc.data();
-        const id = doc.id; 
+        const id = doc.id;
         const paciente = {
-          id:id,      
+          id: id,
           nombre: datos['nombre'],
           apellido: datos['apellido'],
           correo: datos['correo'],
@@ -47,35 +45,30 @@ export class PatientsPage implements OnInit {
     } catch (error) {
       console.log(error);
     }
-
-    
   }
-      
+
   seleccionarPaciente(paciente: any) {
     this.pacienteSeleccionado = paciente;
-    console.log(this.pacienteSeleccionado)
-
+    console.log(this.pacienteSeleccionado);
   }
+
   eliminarPaciente() {
     console.log(this.pacienteSeleccionado)
     if (this.pacienteSeleccionado) {
-      
       const index = this.pacientes.findIndex(paciente => paciente === this.pacienteSeleccionado);
       if (index !== -1) {
         this.pacientes.splice(index, 1);
-        
-        this.eliminarPacienteFirestore(this.pacienteSeleccionado); // Llama a la función para eliminar el documento en Firestore
-        this.pacienteSeleccionado = null; // Resetea el paciente seleccionado
+        this.eliminarPacienteFirestore(this.pacienteSeleccionado);
+        this.pacienteSeleccionado = null;
       }
     }
   }
-  
+
   async eliminarPacienteFirestore(paciente: any) {
     try {
       const db = getFirestore();
       console.log(paciente.dni)
-      const docRef = doc(db, 'Idpaciente', paciente.id); // Supongamos que tienes un campo 'dni' en el objeto paciente
-  
+      const docRef = doc(db, 'Idpaciente', paciente.id);
       await deleteDoc(docRef);
       console.log('Paciente eliminado de Firestore');
     } catch (error) {
@@ -83,9 +76,27 @@ export class PatientsPage implements OnInit {
     }
   }
 
+  async realizarLlamada(numero: string) {
+    try {
+      await CallNumber.call({ number: numero, bypassAppChooser: false });
+      console.log('Llamada telefónica iniciada');
+    } catch (error) {
+      console.log('Error al realizar la llamada telefónica:', error);
+    }
+  }
+
+  async mostrarDetallePaciente() {
+    const modal = await this.modalController.create({
+      component: 'detalle-paciente',
+      componentProps: {
+        paciente: this.pacienteSeleccionado
+      }
+    });
+
+    await modal.present();
+  }
 }
-  
-  
+
   
   
 
