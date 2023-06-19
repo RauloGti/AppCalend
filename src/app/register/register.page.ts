@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './../services/auth.service';
-
+import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
 
@@ -22,6 +22,7 @@ export class RegisterPage implements OnInit {
     private auth: AuthService,
     private router : Router,
     private toastController: ToastController,
+    private alertController: AlertController
     
     
   ) {
@@ -32,13 +33,14 @@ export class RegisterPage implements OnInit {
     }, { validator: this.passwordMatchValidator.bind(this) });
    }
    
-  async mostrarError(mensaje: string) {
-    const toast = await this.toastController.create({
+   async mostrarAlerta(mensaje: string) {
+    const alert = await this.alertController.create({
+      header: 'Advertencia',
       message: mensaje,
-      duration: 3000,
-      position: 'top'
+      buttons: ['Aceptar']
     });
-    toast.present();
+  
+    await alert.present();
   }
   passwordMatchValidator(formGroup: FormGroup) {
     const passwordControl = formGroup.get('password');
@@ -54,10 +56,32 @@ export class RegisterPage implements OnInit {
   }
 
     //funcion login para conectar "logica" y validar los datos
+
     register() {
-      if (this.form.valid) {
-        const { email, password } = this.form.getRawValue();
-        //validar que pass y repass sean iguales
+        const { email, password, confirmPassword } = this.form.getRawValue();
+    
+        let frontValid = false;
+        // Validar que contraseña y confirmar contraseña sean iguales
+        if (password !== confirmPassword) {
+          this.mostrarAlerta( 'La contraseña y la confirmación de contraseña no coinciden');
+          return;
+        }
+    
+        // Validar que la contraseña tenga al menos 6 caracteres
+        if (password.length < 6) {
+          this.mostrarAlerta( 'La contraseña debe tener al menos 6 caracteres');
+          return;
+        }
+    
+        // Validar el formato del correo electrónico
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+        if (!emailRegex.test(email)) {
+        this.mostrarAlerta( 'Ingrese un correo electrónico de @gmail.com válido');
+        return;}
+        
+    
+        
+        // Realizar el registro si todas las validaciones son exitosas
         if (email && password) { // Verificar si email y password no son null
           this.auth.register(email, password)
             .then(() => {
@@ -65,17 +89,60 @@ export class RegisterPage implements OnInit {
             })
             .catch(error => {
               console.error(error);
-              if (error.code === 'auth/weak-password') {
-                this.mostrarError('La contraseña es débil. Debe tener al menos 6 caracteres.');
-              } else if (error.code === 'auth/email-already-in-use') {
-                this.mostrarError('El correo electrónico ya está en uso.');
-              } else {
-                this.mostrarError('Ocurrió un error al registrar el usuario.');
+              if (error.code === 'auth/email-already-in-use') {
+                this.mostrarAlerta('El correo electrónico ya está en uso.');
               }
             });
-        }
       }
     }
+
+
+    // register() {
+
+//     if (email && password) { // Verificar si email y password no son null
+//       this.auth.register(email, password)
+//         .then(() => {
+//           this.router.navigate(['/login']);
+//         })
+//         .catch(error => {
+//           console.error(error);
+//           if (error.code === 'auth/weak-password') {
+//             this.mostrarError('La contraseña es débil. Debe tener al menos 6 caracteres.');
+//           } else if (error.code === 'auth/email-already-in-use') {
+//             this.mostrarError('El correo electrónico ya está en uso.');
+//           } else {
+//             this.mostrarError('Ocurrió un error al registrar el usuario.');
+//           }
+//         });
+//         }
+
+// if (email && password) { // Verificar si email y password no son null
+//   this.auth.register(email, password)
+//     .then(() => {
+//       this.router.navigate(['/login']);
+//     })
+//     .catch(error => {
+//       console.error(error);
+//       this.mostrarAlerta( 'Usuario registrado correctamente');
+//     });
+// }
+
+
+    //   if (this.form.valid) {
+    //     const { email, password } = this.form.getRawValue();
+    //     //validar que pass y repass sean iguales
+    //     if (email && password) { // Verificar si email y password no son null
+    //       this.auth.register(email, password)
+    //         .then(() => {
+    //           this.router.navigate(['/login']);
+    //         })
+    //         .catch(error => {
+    //           console.error(error);
+             
+    //         });
+    //     }
+    //   }
+    // }
 } 
   
   /*register(){

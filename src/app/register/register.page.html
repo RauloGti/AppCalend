@@ -13,7 +13,7 @@
       <ion-card-subtitle>Crea una cuenta y organizar tus consultas sera mas fácil</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="form" novalidate (ngSubmit)="register()">
+      <form [formGroup]="form" novalidate>
         <ion-item>
           <ion-icon name="mail-outline"></ion-icon>
           <ion-input formControlName="email" placeholder="Email" required></ion-input>
@@ -30,7 +30,7 @@
           Las contraseñas no coinciden.
         </ion-note>
         <div class="sign-btn-wrap">
-          <ion-button type="submit" shape="round" fill="solid" class="sign-btn"  (click)="register()" [disabled]="!form.valid">Registrarse</ion-button>
+          <ion-button type="submit" shape="round" fill="solid" class="sign-btn"  (click)="register()" >Registrarse</ion-button>
         </div>
       </form>
     </ion-card-content>

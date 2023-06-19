@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+
 import { async } from 'rxjs';
 
 const provider = new GoogleAuthProvider();
@@ -30,17 +32,20 @@ export class LoginPage implements OnInit {
     private authService : AuthService,
     private router : Router,
     private loadingController: LoadingController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController
+
   ) { }
 //funcion para mostrar un error personalizado al usuario
-  async mostrarError(mensaje: string) {
-    const toast = await this.toastController.create({
-      message: mensaje,
-      duration: 3000,
-      position: 'bottom'
-    });
-    toast.present();
-  }
+async mostrarAlerta(mensaje: string) {
+  const alert = await this.alertController.create({
+    header: 'Advertencia',
+    message: mensaje,
+    buttons: ['Aceptar']
+  });
+
+  await alert.present();
+}
   ngOnInit() {
   }
   //funcion login para conectar "logica" y validar los datos, importado desde firebase. con el AuthService.y el router para que diga donde redireccionar una vez ingresado al login.s
@@ -54,18 +59,18 @@ export class LoginPage implements OnInit {
           })
           //catch de errores personalizados de firebase
           .catch((error: any) => {
-            let mensaje = 'Error al iniciar sesión. Por favor, intenta nuevamente más tarde.';
-            if (error.code === 'auth/user-not-found') {
-              mensaje = 'Usuario no encontrado. Por favor, verifica tus credenciales.';
-            } else if (error.code === 'auth/wrong-password') {
-              mensaje = 'Contraseña incorrecta. Por favor, verifica tus credenciales.';
-            } else if (error.code === 'auth/invalid-email') {
-              mensaje = 'Correo electrónico inválido. Por favor, verifica tus credenciales.';
-            }
-            else if (error.code === 'auth/null-password') {
-              mensaje = 'Escribe un contraseña';
-            }
-            this.mostrarError(mensaje)
+            let mensaje = 'Error al iniciar sesión. Por favor, verifique los datos proporcionados e intente nuevamente.';
+            // if (error.code === 'auth/user-not-found') {
+            //   mensaje = 'Usuario no encontrado. Por favor, verifica tus credenciales.';
+            // } else if (error.code === 'auth/wrong-password') {
+            //   mensaje = 'Usuario o Contraseña incorrecta. Por favor, verifica tus credenciales.';
+            // } else if (error.code === 'auth/invalid-email') {
+            //   mensaje = 'Correo electrónico inválido. Por favor, verifica tus credenciales.';
+            // }
+            // else if (error.code === 'auth/null-password') {
+            //   mensaje = 'Escribe un contraseña';
+            // }
+            this.mostrarAlerta(mensaje)
           });
       }
     } 

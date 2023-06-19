@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, doc, getDoc,getFirestore ,deleteDoc} from '@angular/fire/firestore'
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-createpatient',
   templateUrl: './createpatient.page.html',
@@ -7,7 +8,7 @@ import { Firestore, collection, addDoc, collectionData, doc, getDoc,getFirestore
 })
 export class CreatepatientPage implements OnInit {
 
-  constructor(private firestore :Firestore,) { }
+  constructor(private firestore :Firestore,private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -21,7 +22,51 @@ export class CreatepatientPage implements OnInit {
   inputCorreo:string='';
   inputTelefono:string='';
 
+
+  async mostrarAlerta(mensaje: string) {
+    const alert = await this.alertController.create({
+      header: 'Advertencia',
+      message: mensaje,
+      buttons: ['Aceptar']
+    });
+  
+    await alert.present();
+  }
+
+
  creardatos() {
+  if (
+    this.inputNombre.trim() === '' ||
+    this.inputApellido.trim() === '' ||
+    this.inputDNI.trim() === '' ||
+    this.inputEdad.trim() === '' ||
+    this.inputCorreo.trim() === '' ||
+    this.inputTelefono.trim() === ''
+  ) {
+    this.mostrarAlerta('Por favor completa todos los campos');
+    return;
+  }
+
+  if (isNaN(Number(this.inputDNI))) {
+    this.mostrarAlerta('El campo DNI debe ser un número');
+    return;
+  }
+
+  if (isNaN(Number(this.inputEdad))) {
+    this.mostrarAlerta('El campo Edad debe ser un número');
+    return;
+  }
+
+  if (!this.inputCorreo.includes('@') || !this.inputCorreo.includes('.com')) {
+    this.mostrarAlerta('El campo Correo electrónico debe ser válido');
+    return;
+  }
+
+  if (isNaN(Number(this.inputTelefono))) {
+    this.mostrarAlerta('El campo Teléfono debe ser un número');
+    return;
+  }
+
     const objetoAgregar: any = {
       nombre: this.inputNombre,
       apellido: this.inputApellido,
@@ -55,5 +100,5 @@ export class CreatepatientPage implements OnInit {
 //       console.log(error)
 //     } 
 
-// }
-}
+ }
+
