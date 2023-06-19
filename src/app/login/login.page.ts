@@ -82,8 +82,12 @@ export class LoginPage implements OnInit {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     if (credential != null){
-      const token = credential.accessToken;
-      // The signed-in user info.
+      const accessToken = credential.accessToken;
+      console.log(accessToken);
+       // Aquí tienes el token de acceso que puedes utilizar para realizar solicitudes a la API de Google Calendar.
+
+        // También se puede obtener información adicional del usuario utilizando getAdditionalUserInfo(result)
+        // const additionalUserInfo = getAdditionalUserInfo(result);
     }
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
