@@ -18,22 +18,33 @@
       <form>
 
         <div class="search-create"> 
-          <ion-searchbar>
+          <ion-searchbar 
+                          >
 
           </ion-searchbar>
-
+          <!-- placeholder='try"matias"'
+          [(ngModel)]="searchTerm"
+          showCancelButton="focus" -->
           <ion-button class="create-btn" routerLink="/createpatient">
             <ion-icon name="add"></ion-icon>
           </ion-button>
         </div>
         
         <ion-list>
-          <ion-item> 
+          <ion-item *ngFor="let paciente of pacientes ">
             <ion-label>
-              
+              {{ paciente.nombre }} {{ paciente.apellido }}
             </ion-label>
           </ion-item>
+
+          <!-- <ul>
+            <li *ngFor="let paciente of pacientes" >
+              {{ paciente.nombre }} {{ paciente.apellido }}
+            </li>
+          </ul> -->
         </ion-list>
+        
+        
 
         <div class="re-btn-wrap">
           <ion-button class="turn-btn" routerLink="/assignturn">
@@ -45,7 +56,7 @@
           <ion-button class="call-btn">
             <ion-icon name="call-outline"></ion-icon>
           </ion-button>
-          <ion-button class="delete-btn">
+          <ion-button class="delete-btn" (click)="pedirDatos()" >
             <ion-icon name="trash-outline"></ion-icon>
           </ion-button>
         </div>
