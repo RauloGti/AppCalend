@@ -16,34 +16,35 @@
 
     <ion-card-content>
       <form>
-        <ion-item>
+        <ion-item >
           <ion-icon name="person-outline"></ion-icon>
-          <ion-input placeholder="Nombre" required></ion-input>
+          <ion-input [(ngModel)]="inputNombre" [ngModelOptions]="{standalone: true}" placeholder="Nombre" required ></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="person-outline"></ion-icon>
-          <ion-input placeholder="Apellido" required></ion-input>
+          <ion-input [(ngModel)]="inputApellido" [ngModelOptions]="{standalone: true}" placeholder="Apellido" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="card-outline"></ion-icon>
-          <ion-input placeholder="Documento" required></ion-input>
+          <ion-input [(ngModel)]="inputDNI" [ngModelOptions]="{standalone: true}" placeholder="Documento" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="calendar-outline"></ion-icon>
-          <ion-input placeholder="Edad" required></ion-input>
+          <ion-input [(ngModel)]="inputEdad" [ngModelOptions]="{standalone: true}" placeholder="Edad" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="mail-outline"></ion-icon>
-          <ion-input placeholder="Correo electrónico" required></ion-input>
+          <ion-input [(ngModel)]="inputCorreo" [ngModelOptions]="{standalone: true}" placeholder="Correo electrónico" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="call-outline"></ion-icon>
-          <ion-input placeholder="Número de teléfono" required></ion-input>
+          <ion-input [(ngModel)]="inputTelefono" [ngModelOptions]="{standalone: true}" placeholder="Número de teléfono" required></ion-input>
         </ion-item>
       </form>
+        
 
       <div class="btn-wrap">
-        <ion-button type="submit" shape="round" fill="solid" class="save-btn">Guardar</ion-button>
+        <ion-button type="submit" shape="round" fill="solid" class="save-btn" (click)="creardatos()" routerLink="/patients">Guardar</ion-button>
         <ion-button fill="outline" shape="round" color="dark">Cancelar</ion-button>
       </div>
     </ion-card-content>
