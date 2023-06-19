@@ -30,9 +30,9 @@
         
         <ion-list>
           <ion-item *ngFor="let paciente of pacientes | filter:searchTerm">
-            <ion-label>
+            <ion-button>
               {{ paciente.nombre }} {{ paciente.apellido }}
-            </ion-label>
+            </ion-button>
           </ion-item>
           
           
@@ -56,7 +56,7 @@
           <ion-button class="call-btn">
             <ion-icon name="call-outline"></ion-icon>
           </ion-button>
-          <ion-button class="delete-btn" (click)="pedirDatos()" >
+          <ion-button class="delete-btn"  >
             <ion-icon name="trash-outline"></ion-icon>
           </ion-button>
         </div>

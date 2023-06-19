@@ -16,7 +16,9 @@ export class PatientsPage implements OnInit {
   datos: any;
   searchTerm: string = '';
 
-  async pedirDatos() {
+ 
+  //funcion que a traves de ionic cuando esta cargada la pantalla ejecuta el codigo
+  async ionViewDidEnter(){
     try {
       const db = getFirestore();
       const collectionRef = collection(db, 'Idpaciente');
@@ -39,5 +41,14 @@ export class PatientsPage implements OnInit {
     } catch (error) {
       console.log(error);
     }
+
+    
   }
-}
+      
+    
+
+
+
+  }
+  
+
