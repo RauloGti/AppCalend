@@ -18,24 +18,24 @@
       <form>
 
         <div class="search-create"> 
-          <ion-searchbar 
-                          >
+          
+         
+          <ion-searchbar name="search" [(ngModel)]="searchTerm" showCancelButton="focus"></ion-searchbar>
 
-          </ion-searchbar>
-          <!-- placeholder='try"matias"'
-          [(ngModel)]="searchTerm"
-          showCancelButton="focus" -->
+
           <ion-button class="create-btn" routerLink="/createpatient">
             <ion-icon name="add"></ion-icon>
           </ion-button>
         </div>
         
         <ion-list>
-          <ion-item *ngFor="let paciente of pacientes ">
+          <ion-item *ngFor="let paciente of pacientes | filter:searchTerm">
             <ion-label>
               {{ paciente.nombre }} {{ paciente.apellido }}
             </ion-label>
           </ion-item>
+          
+          
 
           <!-- <ul>
             <li *ngFor="let paciente of pacientes" >

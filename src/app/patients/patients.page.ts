@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, getDoc,getFirestore ,deleteDoc} from '@angular/fire/firestore'
+import { Firestore, collection, addDoc, collectionData, doc, getDoc, getFirestore, deleteDoc } from '@angular/fire/firestore';
 import { getDocs } from 'firebase/firestore';
+
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.page.html',
   styleUrls: ['./patients.page.scss'],
 })
 export class PatientsPage implements OnInit {
+  constructor(private firestore: Firestore) {}
 
-  constructor( private firestore :Firestore,) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   pacientes: { nombre: string, apellido: string, correo: string, dni: string, numero: string, edad: string }[] = [];
   datos: any;
-  searchTerm: any;
+  searchTerm: string = '';
 
-  
-  async pedirDatos(){
-  
+  async pedirDatos() {
     try {
       const db = getFirestore();
-      const collectionRef = collection(db, "Idpaciente");
+      const collectionRef = collection(db, 'Idpaciente');
       const querySnapshot = await getDocs(collectionRef);
 
       querySnapshot.forEach((doc) => {
@@ -42,7 +39,5 @@ export class PatientsPage implements OnInit {
     } catch (error) {
       console.log(error);
     }
-  
- }
-
+  }
 }
