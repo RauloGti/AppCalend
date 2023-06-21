@@ -3,7 +3,7 @@
     <ion-title>Anotador</ion-title>
   </ion-toolbar>
   <ion-buttons slot="start">
-    <ion-back-button default-href="loginscreen" text=""></ion-back-button>
+    <ion-back-button default-href="home" text="Volver"></ion-back-button>
   </ion-buttons>
 </ion-header>
 
@@ -12,17 +12,17 @@
     <ion-card-header>
       <ion-card-title>Anotador</ion-card-title>
       <ion-card-subtitle>Escribe aquí las observaciones de tu paciente</ion-card-subtitle>
-      <ion-text>Paciente: </ion-text>
+      <ion-text></ion-text>
     </ion-card-header>
 
     <ion-card-content>
       <form>
-        <ion-textarea placeholder="Escribe aquí tus observaciones"></ion-textarea>
-        
-        
+        <!--<ion-textarea placeholder="Escribe aquí tus observaciones" (ionChange)="texto = $event.target.value"></ion-textarea>-->
+        <ion-textarea placeholder="Escribe aquí tus observaciones" ></ion-textarea>
       </form>
       <div class="btn-wrap">
-        <ion-button fill="solid" shape="round" class="save-btn">Guardar</ion-button>
+        <!--<ion-button fill="solid" shape="round" class="save-btn" (click)="saveToFile()">Guardar</ion-button>-->
+        <ion-button fill="solid" shape="round" class="save-btn" >Guardar</ion-button>
         <ion-button fill="outline" shape="round" color="dark">Cancelar</ion-button>
       </div>
     </ion-card-content>

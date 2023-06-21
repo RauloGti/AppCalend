@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./assignturn.page.scss'],
 })
 export class AssignturnPage implements OnInit {
+  Turno: string | undefined; 
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  turno() {
+    console.log('Fecha seleccionada:', this.Turno); 
   }
-
 }
