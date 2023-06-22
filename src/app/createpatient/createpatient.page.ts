@@ -33,6 +33,14 @@ export class CreatepatientPage implements OnInit {
     await alert.present();
   }
 
+  limpiarCampos() {
+    this.inputNombre = '';
+    this.inputApellido = '';
+    this.inputDNI = '';
+    this.inputEdad = '';
+    this.inputCorreo = '';
+    this.inputTelefono = '';
+  }
 
  creardatos() {
   if (
@@ -42,6 +50,7 @@ export class CreatepatientPage implements OnInit {
     this.inputEdad.trim() === '' ||
     this.inputCorreo.trim() === '' ||
     this.inputTelefono.trim() === ''
+    
   ) {
     this.mostrarAlerta('Por favor completa todos los campos');
     return;
@@ -73,7 +82,8 @@ export class CreatepatientPage implements OnInit {
       dni: this.inputDNI,
       edad: this.inputEdad,
       correo: this.inputCorreo,
-      telefono: this.inputTelefono
+      telefono: this.inputTelefono,
+      anotador:""
     };
 
     const collectionCrear = collection(this.firestore, "Idpaciente");
@@ -87,6 +97,7 @@ export class CreatepatientPage implements OnInit {
       });
   }
 
+}
   //FUNCION QUE ELIMINA
 //   EliminarDatos(){
 
@@ -100,5 +111,5 @@ export class CreatepatientPage implements OnInit {
 //       console.log(error)
 //     } 
 
- }
+ 
 

@@ -4,22 +4,46 @@ import { getDocs } from 'firebase/firestore';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { idToken } from '@angular/fire/auth';
-
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.page.html',
   styleUrls: ['./patients.page.scss'],
 })
 export class PatientsPage implements OnInit {
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore,private alertController: AlertController,private router: Router) {}
 
   ngOnInit() {}
-
+  pacienteSeleccionadoId: string="";
   pacientes: { nombre: string, apellido: string, correo: string, dni: string, numero: string, edad: string }[] = [];
   datos: any;
   searchTerm: string = '';
   pacienteSeleccionado: any=null;
- 
+
+  async mostrarAlerta(mensaje: string) {
+    const alert = await this.alertController.create({
+      header: 'Advertencia',
+      message: mensaje,
+      buttons: ['Aceptar']
+    })
+    await alert.present();
+  }
+  
+  // accederAnotador() {
+  //   if (this.pacienteSeleccionado) {
+  //     this.router.navigate(['/annotator', { pacienteId: this.pacienteSeleccionado.id }]);
+  //   } else {
+  //     this.mostrarAlerta('Por favor, selecciona un paciente para acceder al anotador');
+  //   }
+  // }
+  
+  seleccionarPaciente(paciente: any) {
+    this.pacienteSeleccionado = paciente;
+    this.pacienteSeleccionadoId = paciente.id;
+    
+  }
+
   //funcion que a traves de ionic cuando esta cargada la pantalla ejecuta el codigo
   async ionViewDidEnter(){
     try {
@@ -27,7 +51,7 @@ export class PatientsPage implements OnInit {
       const db = getFirestore();
       const collectionRef = collection(db, 'Idpaciente');
       const querySnapshot = await getDocs(collectionRef);
-
+      this.pacientes = [];
       querySnapshot.forEach((doc) => {
         const datos = doc.data();
         const id = doc.id; 
@@ -51,11 +75,7 @@ export class PatientsPage implements OnInit {
     
   }
       
-  seleccionarPaciente(paciente: any) {
-    this.pacienteSeleccionado = paciente;
-    console.log(this.pacienteSeleccionado)
-
-  }
+ 
   eliminarPaciente() {
     console.log(this.pacienteSeleccionado)
     if (this.pacienteSeleccionado) {
@@ -82,6 +102,8 @@ export class PatientsPage implements OnInit {
       console.log('Error al eliminar paciente de Firestore', error);
     }
   }
+
+
 
 }
   

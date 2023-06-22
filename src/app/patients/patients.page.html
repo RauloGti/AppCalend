@@ -27,7 +27,7 @@
       <div class="content-wrapper">
         <div class="pacientes-wrapper">
           <ion-list [inset]="true">
-            <ion-item button *ngFor="let paciente of pacientes" (click)="seleccionarPaciente(paciente)">
+            <ion-item button *ngFor="let paciente of pacientes | filter:searchTerm" (click)="seleccionarPaciente(paciente)">
               <ion-label> {{ paciente.nombre }} {{ paciente.apellido }} </ion-label>
             </ion-item>
           </ion-list>
@@ -39,7 +39,7 @@
         <ion-button class="turn-btn" routerLink="/assignturn">
           <ion-icon name="calendar"></ion-icon>
         </ion-button>
-        <ion-button class="clipboard-btn" routerLink="/annotator">
+        <ion-button class="clipboard-btn" [routerLink]="['/annotator', pacienteSeleccionado?.id]">
           <ion-icon name="clipboard"></ion-icon>
         </ion-button>
         <ion-button class="call-btn">

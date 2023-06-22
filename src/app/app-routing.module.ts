@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
-//funcion que redirecciona sin sesion iniciada, al login. para autentificarse.
-//const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+
 const routes: Routes = [
   {
     path: '',
@@ -24,9 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    canActivate:[AuthGuard],
-    //data: { AuthGuardPipe : redirectUnauthorizedToLogin },
-    //Comando para asegurar las rutas.
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
@@ -50,16 +49,13 @@ const routes: Routes = [
     loadChildren: () => import('./createpatient/createpatient.module').then( m => m.CreatepatientPageModule)
   },
   {
-    path: 'annotator',
+    path: 'annotator/:pacienteId', // Agregamos el parámetro pacienteId a la ruta
     loadChildren: () => import('./annotator/annotator.module').then( m => m.AnnotatorPageModule)
-  },  {
+  },
+  {
     path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
   }
-
-
-
-
 ];
 
 @NgModule({
