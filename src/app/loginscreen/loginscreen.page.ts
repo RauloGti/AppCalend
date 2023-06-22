@@ -85,7 +85,7 @@ export class LoginscreenPage implements OnInit {
     const credential = GoogleAuthProvider.credentialFromResult(result);
     if (credential != null){
       const token = credential.accessToken;
-      // The signed-in user info.
+      console.log(token);
     }
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
