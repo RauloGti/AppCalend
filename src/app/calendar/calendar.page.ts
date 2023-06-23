@@ -15,11 +15,13 @@ declare var google: any;
 })
 
 export class CalendarPage {
+  // Declaración de las constantes con las credenciales y configuraciones de la API de Google Calendar
   private readonly CLIENT_ID = '428884575058-41vkl257en3gqom63vsbod91gp0ou4k9.apps.googleusercontent.com';
   private readonly API_KEY = 'AIzaSyC8aFn4uCvdrXr0rUJPrbNGxVU6UIYIsRA';
   private readonly DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-  private readonly SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+  private readonly SCOPES = 'https://www.googleapis.com/auth/calendar';
 
+  // Variable para controlar la inicialización de gapi
   private gapiInited = false;
   private tokenClient: any;
 
@@ -27,7 +29,7 @@ export class CalendarPage {
   constructor() {
     this.loadGapi();
   }
-
+ // Método para cargar la API de gapi
   private loadGapi() {
     const script = document.createElement('script');
     script.src = 'https://apis.google.com/js/api.js';
@@ -36,7 +38,7 @@ export class CalendarPage {
     };
     document.body.appendChild(script);
   }
-
+  // Método para inicializar el cliente de gapi
   private initializeGapiClient() {
     gapi.client.init({
       apiKey: this.API_KEY,
@@ -55,13 +57,13 @@ export class CalendarPage {
     });
     this.maybeEnableButtons();
   }
-
+// Método para habilitar/deshabilitar los botones según la autenticación del usuario
   private maybeEnableButtons() {
     if (this.gapiInited) {
       // Aquí puedes manipular la visibilidad de los botones según la autenticación del usuario
     }
   }
-
+ // Método para autorizar y obtener el token de acceso
   public async authorize(): Promise<void> {
     this.tokenClient.callback = async (resp: any) => {
       if (resp.error !== undefined) {
@@ -76,7 +78,7 @@ export class CalendarPage {
       this.tokenClient.requestAccessToken({ prompt: '' });
     }
   }
-
+ // Método para cerrar sesión y revocar el token de acceso
   public async signOut(): Promise<void> {
     const token = gapi.client.getToken();
     if (token !== null) {
@@ -85,6 +87,21 @@ export class CalendarPage {
     }
     // Aquí puedes realizar acciones después de cerrar sesión
   }
+  public async createCalendarEvent(event: any): Promise<any> {
+    try {
+      const response = await gapi.client.calendar.events.insert({
+        calendarId: 'calendaap@gmail.com',
+        resource: event,
+      });
+      console.log('Evento creado exisitosamente:', response.result);
+      return response.result;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+  
+    // Método para crear un nuevo evento en Google Calendar
 
   public async getCalendarEvents(): Promise<any[]> {
     try {
@@ -95,7 +112,7 @@ export class CalendarPage {
       const timeMin = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0).toISOString();
   
       const response = await gapi.client.calendar.events.list({
-        calendarId: 'primary',
+        calendarId: 'calendaap@gmail.com',
         timeMin: timeMin,
         showDeleted: false,
         singleEvents: true,
@@ -110,12 +127,27 @@ export class CalendarPage {
       return [];
     }
   }
+  public async submitForm(eventDetails: any): Promise<void> {
+    try {
+      const newEvent = {
+        summary: eventDetails.summary,
+        description: eventDetails.description,
+        location: eventDetails.location,
+        start: {
+          dateTime: eventDetails.startTime,
+        },
+        end: {
+          dateTime: eventDetails.endTime,
+        },
+      };
 
-  
-  
-  
-  
-  
-  
+      const createdEvent = await this.createCalendarEvent(newEvent);
+      console.log('Evento creado:', createdEvent);
 
+      // Realiza otras acciones después de crear el evento, si es necesario
+    } catch (err) {
+      console.error('Error al crear el evento:', err);
+      // Maneja el error según sea necesario
+    }
+  }
 }
