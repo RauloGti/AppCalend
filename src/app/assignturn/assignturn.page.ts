@@ -9,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class AssignturnPage {
     selectedDate: string = '';
     selectedTime: string = '';
-  
+    Turno: string | undefined; 
     constructor() {}
   
+    
     saveEvent() {
       const eventDetails = {
         summary: 'Título del evento',
@@ -41,6 +42,10 @@ export class AssignturnPage {
       // Retorna la fecha y hora en formato ISO 8601
       return selectedDateTime.toISOString();
     }
+    //turno basico de prueba que muestra en pantalla lo seleccionado para probar tipos de dato de ingreso
+    turno() {
+      console.log('Fecha seleccionada:', this.Turno); 
+    }  
   }
   
   /*implementando funcion de agregar campos de titulo evento y demas

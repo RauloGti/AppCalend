@@ -3,7 +3,7 @@
     <ion-title>Asignar turno</ion-title>
   </ion-toolbar>
   <ion-buttons slot="start">
-    <ion-back-button default-href="loginscreen" text=""></ion-back-button>
+    <ion-back-button default-href="calendar" text="Volver"></ion-back-button>
   </ion-buttons>
 </ion-header>
 
@@ -12,15 +12,22 @@
     <ion-card-header>
       <ion-card-title>Asignar turno</ion-card-title>
       <ion-card-subtitle>Selecciona fecha y hora, y acepta para agendarle un turno a tu paciente</ion-card-subtitle>
-      <ion-text>Paciente:</ion-text>
-    </ion-card-header>
+     </ion-card-header>
 
     <ion-card-content>
-      <form>
-        <ion-datetime display-format="MMM DD, YYYY HH:mm" picker-format="MMM DD, YYYY HH:mm" placeholder="Selecciona fecha y hora"></ion-datetime>
+      <form #myForm="ngForm"> 
+        <ion-datetime
+          display-format="MMM DD, YYYY HH:mm"
+          picker-format="MMM DD, YYYY HH:mm"
+          placeholder="Selecciona fecha y hora"
+          [(ngModel)]="Turno"
+          name="turno" 
+          #turnoInput="ngModel" 
+          [ngModelOptions]="{ standalone: true }" 
+        ></ion-datetime>
       </form>
       <div class="btn-wrap">
-        <ion-button fill="solid" shape="round" class="save-btn">Guardar</ion-button>
+        <ion-button fill="solid" shape="round" class="save-btn"(click)="turno()">Guardar</ion-button>
         <ion-button fill="outline" shape="round" color="dark">Cancelar</ion-button>
       </div>
     </ion-card-content>
