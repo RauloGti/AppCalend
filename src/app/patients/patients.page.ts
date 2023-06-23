@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, doc, getDoc, getFirestore, deleteDoc } from '@angular/fire/firestore';
 import { getDocs } from 'firebase/firestore';
-import { CallNumber } from 'capacitor-call-number';
+
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -76,14 +76,14 @@ export class PatientsPage implements OnInit {
     }
   }
 
-  async realizarLlamada(numero: string) {
+ /* async realizarLlamada(numero: string) {
     try {
       await CallNumber.call({ number: numero, bypassAppChooser: false });
       console.log('Llamada telefónica iniciada');
     } catch (error) {
       console.log('Error al realizar la llamada telefónica:', error);
     }
-  }
+  }*/
 
   async mostrarDetallePaciente() {
     const modal = await this.modalController.create({
