@@ -18,14 +18,20 @@
       <form>
 
         <div class="search-filter"> 
-          <ion-button class="filter-btn" expand="full" fill="outline" shape="round" color="dark">
-            <ion-icon name="options"></ion-icon> 
-            Filtrar por
+          <ion-searchbar name="search" [(ngModel)]="searchTerm" showCancelButton="focus" (ionChange)="applyFilter()"></ion-searchbar>
+          <ion-icon name="options"></ion-icon> 
+          <ion-button>
+          Filtrar por Nombre
           </ion-button>
         </div>
         <script src="https://calendar.google.com/calendar/embed?src=calendaap%40gmail.com&ctz=America%2FArgentina%2FBuenos_Aires" style="border: 0" width="800" height="600" frameborder="0" scrolling="no" type="text/javascript"></script>
         <ion-list>
-          <!-- Lista de turnos -->
+          <ng-container *ngFor="let event of filteredEvents">
+            <ion-item>
+              <ion-label>{{ event.summary }}</ion-label>
+              <ion-note>{{ event.start.dateTime }}</ion-note>
+            </ion-item>
+          </ng-container>
         </ion-list>
 
         <div class="re-btn-wrap">

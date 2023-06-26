@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
 
+
 declare var gapi: any;
 declare var google: any;
 
@@ -15,6 +16,10 @@ declare var google: any;
 })
 
 export class CalendarPage {
+  events: any[] = [];
+  filterText: string = '';
+  filteredEvents: any[] = []; // Propiedad para almacenar los eventos filtrados
+  searchTerm: string = '';
   // Declaración de las constantes con las credenciales y configuraciones de la API de Google Calendar
   private readonly CLIENT_ID = '428884575058-41vkl257en3gqom63vsbod91gp0ou4k9.apps.googleusercontent.com';
   private readonly API_KEY = 'AIzaSyC8aFn4uCvdrXr0rUJPrbNGxVU6UIYIsRA';
@@ -24,8 +29,8 @@ export class CalendarPage {
   // Variable para controlar la inicialización de gapi
   private gapiInited = false;
   private tokenClient: any;
-
-
+  
+  
   constructor() {
     this.loadGapi();
   }
@@ -101,53 +106,44 @@ export class CalendarPage {
     }
   }
   
-    // Método para crear un nuevo evento en Google Calendar
+    // Método para traer un nuevo evento en Google Calendar
 
-  public async getCalendarEvents(): Promise<any[]> {
-    try {
-      // Obtener la fecha y hora actual
-      const currentDate = new Date();
-  
-      // Establecer la fecha y hora mínima para obtener eventos
-      const timeMin = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0).toISOString();
-  
-      const response = await gapi.client.calendar.events.list({
-        calendarId: 'calendaap@gmail.com',
-        timeMin: timeMin,
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: 10,
-        orderBy: 'startTime',
-      });
-      console.log(response)
-      const events = response.result.items || [];
-      return events;
-    } catch (err) {
-      console.error(err);
-      return [];
+    public async getCalendarEvents(): Promise<void> {
+      try {
+        // Obtener la fecha y hora actual
+        const currentDate = new Date();
+    
+        // Establecer la fecha y hora mínima para obtener eventos
+        const timeMin = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0).toISOString();
+    
+        const response = await gapi.client.calendar.events.list({
+          calendarId: 'calendaap@gmail.com',
+          timeMin: timeMin,
+          showDeleted: false,
+          singleEvents: true,
+          maxResults: 10,
+          orderBy: 'startTime',
+        });
+    
+        console.log(response);
+    
+        this.events = response.result.items || []; // Asignar los eventos a la propiedad 'events'
+    
+      } catch (err) {
+        console.error(err);
+        this.events = []; // Manejar el error y asignar un arreglo vacío si es necesario
+      }
     }
+      // Método para filtrar los eventos según el texto de búsqueda
+  filterEvents() {
+    this.filteredEvents = this.events.filter(event =>
+      event.summary.toLowerCase().includes(this.filterText.toLowerCase())
+    );
   }
-  public async submitForm(eventDetails: any): Promise<void> {
-    try {
-      const newEvent = {
-        summary: eventDetails.summary,
-        description: eventDetails.description,
-        location: eventDetails.location,
-        start: {
-          dateTime: eventDetails.startTime,
-        },
-        end: {
-          dateTime: eventDetails.endTime,
-        },
-      };
-
-      const createdEvent = await this.createCalendarEvent(newEvent);
-      console.log('Evento creado:', createdEvent);
-
-      // Realiza otras acciones después de crear el evento, si es necesario
-    } catch (err) {
-      console.error('Error al crear el evento:', err);
-      // Maneja el error según sea necesario
-    }
+   // Método para filtrar los eventos según el término de búsqueda
+   applyFilter() {
+    this.filteredEvents = this.events.filter(event =>
+      event.summary.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 }

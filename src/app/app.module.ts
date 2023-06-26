@@ -12,6 +12,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { GoogleCalendarService } from './services/google-calendar.service';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AuthGuardModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
