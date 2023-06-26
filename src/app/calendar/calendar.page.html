@@ -10,7 +10,7 @@
 <ion-content class="ion-padding">
   <ion-card class="ion-no-margin">
     <ion-card-header>
-      <ion-card-title>Agenda</ion-card-title>
+      <ion-card-title>Turnos</ion-card-title>
       <ion-card-subtitle>Revisa, crea y elimina turnos. Gestiona tus sesiones desde esta pantalla.</ion-card-subtitle>
     </ion-card-header>
 
@@ -26,10 +26,10 @@
         </div>
         <script src="https://calendar.google.com/calendar/embed?src=calendaap%40gmail.com&ctz=America%2FArgentina%2FBuenos_Aires" style="border: 0" width="800" height="600" frameborder="0" scrolling="no" type="text/javascript"></script>
         <ion-list>
-          <ng-container *ngFor="let event of filteredEvents">
-            <ion-item>
+          <ng-container *ngFor="let event of events">
+            <ion-item *ngIf="event.summary.includes(filterText)">
               <ion-label>{{ event.summary }}</ion-label>
-              <ion-note>{{ event.start.dateTime }}</ion-note>
+              <ion-note>{{ event.start }}</ion-note>
             </ion-item>
           </ng-container>
         </ion-list>
@@ -39,8 +39,8 @@
           <ion-button class="call-btn">
             <ion-icon name="call-outline"></ion-icon>
           </ion-button>
-          <ion-button class="delete-btn" (click)="getCalendarEvents()">
-            <ion-icon name="trash-outline"></ion-icon>
+          <ion-button class="Default"color="dark"(click)="getCalendarEvents()">
+            <ion-icon name="logo-ionic"></ion-icon>
           </ion-button>
         </div>
       </form>
