@@ -76,12 +76,14 @@ export class AnnotatorPage implements OnInit {
   }
   
   guardarObservaciones() {
+    this.pacienteSeleccionado.anotador = this.observaciones;
+    console.log(this.pacienteSeleccionado.anotador);
     // Aquí puedes implementar la lógica para guardar las observaciones
     console.log('Observaciones guardadas:', this.observaciones);
     // Puedes almacenar las observaciones en una base de datos, enviarlas a un servidor, etc.
     // También puedes actualizar el campo 'anotador' del pacienteSeleccionado con this.observaciones si deseas reflejarlo en la interfaz.
-    this.pacienteSeleccionado.anotador = this.observaciones;
-    console.log(this.pacienteSeleccionado.anotador);
+   /* this.pacienteSeleccionado.anotador = this.observaciones;
+    console.log(this.pacienteSeleccionado.anotador);*/
   }
 
   cancelarAnotador() {

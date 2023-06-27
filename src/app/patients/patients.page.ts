@@ -30,13 +30,13 @@ export class PatientsPage implements OnInit {
     await alert.present();
   }
   
-  // accederAnotador() {
-  //   if (this.pacienteSeleccionado) {
-  //     this.router.navigate(['/annotator', { pacienteId: this.pacienteSeleccionado.id }]);
-  //   } else {
-  //     this.mostrarAlerta('Por favor, selecciona un paciente para acceder al anotador');
-  //   }
-  // }
+   accederAnotador() {
+     if (this.pacienteSeleccionado) {
+       this.router.navigate(['/annotator', { pacienteId: this.pacienteSeleccionado.id }]);
+     } else {
+       this.mostrarAlerta('Por favor, selecciona un paciente para acceder al anotador');
+     }
+   }
   
   seleccionarPaciente(paciente: any) {
     this.pacienteSeleccionado = paciente;
