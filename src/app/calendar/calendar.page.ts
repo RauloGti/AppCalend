@@ -27,7 +27,7 @@ export class CalendarPage {
   private readonly SCOPES = 'https://www.googleapis.com/auth/calendar';
 
   // Variable para controlar la inicialización de gapi
-  private gapiInited = false;
+  private gapiInited = true;
   private tokenClient: any;
   
   
@@ -98,7 +98,7 @@ export class CalendarPage {
         calendarId: 'calendaap@gmail.com',
         resource: event,
       });
-      console.log('Evento creado exisitosamente:', response.result);
+      console.log('Evento creado exitosamente:', response.result);
       return response.result;
     } catch (err) {
       console.error(err);

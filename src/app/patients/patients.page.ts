@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./patients.page.scss'],
 })
 export class PatientsPage implements OnInit {
+  tituloEvento: string | undefined;
   constructor(private firestore: Firestore,private alertController: AlertController,private router: Router) {}
 
   ngOnInit() {}
@@ -41,7 +42,7 @@ export class PatientsPage implements OnInit {
   seleccionarPaciente(paciente: any) {
     this.pacienteSeleccionado = paciente;
     this.pacienteSeleccionadoId = paciente.id;
-    
+    this.tituloEvento = paciente.nombre + ' ' + paciente.apellido; // asigna el título del evento
   }
 
   //funcion que a traves de ionic cuando esta cargada la pantalla ejecuta el codigo
