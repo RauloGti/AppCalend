@@ -32,7 +32,15 @@ export class AssignturnPage {
     };
 
     // Llama al método createCalendarEvent() en la instancia de CalendarPage pasando los detalles del evento
-    this.calendarPage.createCalendarEvent(eventDetails);
+    this.calendarPage.createCalendarEvent(eventDetails)
+      .then(() => {
+        console.log('Evento guardado exitosamente');
+        // Aquí puedes realizar acciones después de guardar el evento
+      })
+      .catch((error: any) => {
+        console.error('Error al guardar el evento:', error);
+        // Aquí puedes manejar el error de guardado del evento
+      });
   }
 
   getSelectedDateTime(): string {

@@ -16,25 +16,24 @@ declare var google: any;
 })
 
 export class CalendarPage {
-  events: any[] = [];
-  filterText: string = '';
-  filteredEvents: any[] = []; // Propiedad para almacenar los eventos filtrados
-  searchTerm: string = '';
-  // Declaración de las constantes con las credenciales y configuraciones de la API de Google Calendar
-  private readonly CLIENT_ID = '428884575058-41vkl257en3gqom63vsbod91gp0ou4k9.apps.googleusercontent.com';
-  private readonly API_KEY = 'AIzaSyC8aFn4uCvdrXr0rUJPrbNGxVU6UIYIsRA';
+  private readonly CLIENT_ID = '428884575058-adu88dh2t8r2a19ote2h468opfo26htj.apps.googleusercontent.com';
+  
   private readonly DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
   private readonly SCOPES = 'https://www.googleapis.com/auth/calendar';
 
-  // Variable para controlar la inicialización de gapi
-  private gapiInited = true;
   private tokenClient: any;
-  
-  
+  gapiInited: boolean | undefined;
+  events: any;
+  filterText: any;
+  searchTerm: any;
+
   constructor() {
     this.loadGapi();
   }
- // Método para cargar la API de gapi
+
+ 
+
+  // Método para cargar la API de gapi
   private loadGapi() {
     const script = document.createElement('script');
     script.src = 'https://apis.google.com/js/api.js';
@@ -43,47 +42,39 @@ export class CalendarPage {
     };
     document.body.appendChild(script);
   }
+
   // Método para inicializar el cliente de gapi
   private initializeGapiClient() {
     gapi.client.init({
-      apiKey: this.API_KEY,
+      clientId: this.CLIENT_ID,
       discoveryDocs: [this.DISCOVERY_DOC],
+      scope: this.SCOPES,
     }).then(() => {
       this.gapiInited = true;
       this.maybeEnableButtons();
     });
   }
 
-  private gisLoaded() {
-    this.tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: this.CLIENT_ID,
-      scope: this.SCOPES,
-      callback: '', // defined later
-    });
-    this.maybeEnableButtons();
-  }
-// Método para habilitar/deshabilitar los botones según la autenticación del usuario
+  // Método para habilitar/deshabilitar los botones según la autenticación del usuario
   private maybeEnableButtons() {
     if (this.gapiInited) {
       // Aquí puedes manipular la visibilidad de los botones según la autenticación del usuario
     }
   }
- // Método para autorizar y obtener el token de acceso
-  public async authorize(): Promise<void> {
-    this.tokenClient.callback = async (resp: any) => {
-      if (resp.error !== undefined) {
-        throw resp;
-      }
-      // Aquí puedes realizar acciones después de la autorización exitosa
-    };
 
-    if (gapi.client.getToken() === null) {
-      this.tokenClient.requestAccessToken({ prompt: 'consent' });
-    } else {
-      this.tokenClient.requestAccessToken({ prompt: '' });
+  // Método para autorizar y obtener el token de acceso
+  public async authorize(): Promise<void> {
+    this.tokenClient = gapi.auth2.getAuthInstance();
+  
+    try {
+      await this.tokenClient.signIn();
+      // Aquí puedes realizar acciones después de la autorización exitosa
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
   }
- // Método para cerrar sesión y revocar el token de acceso
+  // Método para cerrar sesión y revocar el token de acceso
   public async signOut(): Promise<void> {
     const token = gapi.client.getToken();
     if (token !== null) {
@@ -92,11 +83,16 @@ export class CalendarPage {
     }
     // Aquí puedes realizar acciones después de cerrar sesión
   }
+
   public async createCalendarEvent(event: any): Promise<any> {
     try {
+      const token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
       const response = await gapi.client.calendar.events.insert({
         calendarId: 'calendaap@gmail.com',
         resource: event,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       console.log('Evento creado exitosamente:', response.result);
       return response.result;
@@ -136,13 +132,13 @@ export class CalendarPage {
     }
       // Método para filtrar los eventos según el texto de búsqueda
   filterEvents() {
-    this.filteredEvents = this.events.filter(event =>
+    this.filterEvents = this.events.filter((event: { summary: string; }) =>
       event.summary.toLowerCase().includes(this.filterText.toLowerCase())
     );
   }
    // Método para filtrar los eventos según el término de búsqueda
    applyFilter() {
-    this.filteredEvents = this.events.filter(event =>
+    this.filterEvents = this.events.filter((event: { summary: string; }) =>
       event.summary.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
