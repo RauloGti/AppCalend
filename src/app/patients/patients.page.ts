@@ -6,13 +6,16 @@ import { CommonModule } from '@angular/common';
 import { idToken } from '@angular/fire/auth';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { PatientInfoPage } from '../patients/patient-info.page';
+
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.page.html',
   styleUrls: ['./patients.page.scss'],
 })
 export class PatientsPage implements OnInit {
-  constructor(private firestore: Firestore,private alertController: AlertController,private router: Router) {}
+  constructor(private firestore: Firestore, private alertController: AlertController, private router: Router, private modalController: ModalController) {}
 
   ngOnInit() {}
   pacienteSeleccionadoId: string="";
@@ -102,7 +105,16 @@ export class PatientsPage implements OnInit {
       console.log('Error al eliminar paciente de Firestore', error);
     }
   }
-
+  async mostrarInformacionPaciente() {
+    const modal = await this.modalController.create({
+      component: PatientInfoPage,
+      componentProps: {
+        paciente: this.pacienteSeleccionado
+      }
+    });
+    return await modal.present();
+  }
+  
 
 
 }

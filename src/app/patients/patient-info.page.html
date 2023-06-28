@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Información del paciente</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-label>Nombre: {{ paciente.nombre }}</ion-label>
+      <ion-label>Apellido: {{ paciente.apellido }}</ion-label>
+      <ion-label>Correo: {{ paciente.correo }}</ion-label>
+      <ion-label>DNI: {{ paciente.dni }}</ion-label>
+      <ion-label>Número: {{ paciente.numero }}</ion-label>
+      <ion-label>Edad: {{ paciente.edad }}</ion-label>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
