@@ -55,7 +55,11 @@ const routes: Routes = [
   {
     path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+  },  {
+    path: 'escritura-detalle-page',
+    loadChildren: () => import('./escritura-detalle-page/escritura-detalle-page.module').then( m => m.EscrituraDetallePagePageModule)
   }
+
 ];
 
 @NgModule({
