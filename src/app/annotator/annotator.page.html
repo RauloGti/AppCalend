@@ -28,7 +28,7 @@
       <ion-list>
         <ion-item *ngFor="let escritura of escriturasAnteriores">
           <ion-label>{{ escritura.texto }}</ion-label>
-          <ion-checkbox [(ngModel)]="escritura.seleccionado"></ion-checkbox>
+          <ion-checkbox aria-label="Borrar"  [(ngModel)]="escritura.seleccionado"></ion-checkbox>
           <ion-button (click)="borrarEscritura(escritura)" color="danger">Borrar</ion-button>
         </ion-item>
       </ion-list>

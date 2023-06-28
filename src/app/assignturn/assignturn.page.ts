@@ -44,7 +44,7 @@ export class AssignturnPage {
     }
     //turno basico de prueba que muestra en pantalla lo seleccionado para probar tipos de dato de ingreso
     turno() {
-      console.log('Fecha seleccionada:', this.Turno); 
+      console.log(this.Turno); 
     }  
   }
   
