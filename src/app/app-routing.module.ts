@@ -41,7 +41,7 @@ const routes: Routes = [
     loadChildren: () => import('./patients/patients.module').then( m => m.PatientsPageModule)
   },
   {
-    path: 'assignturn',
+    path: 'assignturn/:pacienteId',
     loadChildren: () => import('./assignturn/assignturn.module').then( m => m.AssignturnPageModule)
   },
   {

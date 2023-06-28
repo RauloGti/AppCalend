@@ -37,6 +37,13 @@ export class PatientsPage implements OnInit {
        this.mostrarAlerta('Por favor, selecciona un paciente para acceder al anotador');
      }
    }
+   accederAsignarTurno() {
+    if (this.pacienteSeleccionado) {
+      this.router.navigate(['/assignturn', { pacienteId: this.pacienteSeleccionado.id }]);
+    } else {
+      this.mostrarAlerta('Por favor, selecciona un paciente para asignar un turno');
+    }
+  }
   
   seleccionarPaciente(paciente: any) {
     this.pacienteSeleccionado = paciente;

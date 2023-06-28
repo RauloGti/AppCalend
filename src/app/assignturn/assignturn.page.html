@@ -12,6 +12,9 @@
     <ion-card-header>
       <ion-card-title>Asignar turno</ion-card-title>
       <ion-card-subtitle>Selecciona fecha y hora, y acepta para agendarle un turno a tu paciente</ion-card-subtitle>
+      <ion-label>Paciente: {{ pacienteSeleccionado?.nombre }} {{ pacienteSeleccionado?.apellido }}</ion-label>
+      <script src="https://calendar.google.com/calendar/embed?src=calendaap%40gmail.com&ctz=America%2FArgentina%2FBuenos_Aires" style="border: 0" width="800" height="600" frameborder="0" scrolling="no" type="text/javascript"></script>
+
      </ion-card-header>
 
     <ion-card-content>
@@ -25,9 +28,10 @@
           #turnoInput="ngModel" 
           [ngModelOptions]="{ standalone: true }" 
         ></ion-datetime>
+        
       </form>
       <div class="btn-wrap">
-        <ion-button fill="solid" shape="round" class="save-btn"(click)="turno()">Guardar</ion-button>
+        <ion-button fill="solid" shape="round" class="save-btn"(click)="saveEvent()">Guardar</ion-button>
         <ion-button fill="outline" shape="round" color="dark">Cancelar</ion-button>
       </div>
     </ion-card-content>

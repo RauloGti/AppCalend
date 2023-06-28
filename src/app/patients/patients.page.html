@@ -36,7 +36,7 @@
       
     
       <div class="re-btn-wrap">
-        <ion-button class="turn-btn" routerLink="/assignturn">
+        <ion-button class="turn-btn" [routerLink]="['/assignturn', pacienteSeleccionado?.id]">
           <ion-icon name="calendar"></ion-icon>
         </ion-button>
         <ion-button class="clipboard-btn" [routerLink]="['/annotator', pacienteSeleccionado?.id]">
