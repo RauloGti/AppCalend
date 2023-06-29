@@ -1,3 +1,21 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Anotador</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="loginscreen" text=""></ion-back-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-no-margin">
+    <ion-card-header>
+      <ion-card-title>Anotador</ion-card-title>
+      <ion-card-subtitle>Escribe aquí las observaciones de tu paciente</ion-card-subtitle>
+      <ion-label>Paciente: {{ pacienteSeleccionado?.nombre }} {{ pacienteSeleccionado?.apellido }}</ion-label>
+    </ion-card-header>
+
 <ion-card-content>
   <form>
     <ion-item>
@@ -16,3 +34,13 @@
     <ion-button fill="outline" shape="round" color="dark" (click)="cancelarAnotador()">Cancelar</ion-button>
   </div>
 </ion-card-content>
+<ion-card *ngIf="notaSeleccionada">
+  <ion-card-header>
+    <ion-card-title>Nota</ion-card-title>
+    <ion-card-subtitle>Contenido de la nota</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{ notaSeleccionada }}</p>
+  </ion-card-content>
+  <ion-button fill="outline" shape="round" color="dark" (click)="cerrarNota()">Cerrar</ion-button>
+</ion-card>

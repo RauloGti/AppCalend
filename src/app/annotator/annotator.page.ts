@@ -12,7 +12,7 @@ export class AnnotatorPage implements OnInit {
   observaciones: string[] = [];
   anotadorInput: string;
   escriturasAnteriores: string[];
-  
+  notaSeleccionada: string | null = null;
 
   constructor(private router: Router, private route: ActivatedRoute, private firestore: Firestore) {
     this.anotadorInput = '';
@@ -20,15 +20,13 @@ export class AnnotatorPage implements OnInit {
   }
 
   async ngOnInit() {
-    
-  this.observaciones = this.escriturasAnteriores;
     const pacienteId = this.route.snapshot.paramMap.get('pacienteId');
     if (pacienteId) {
       try {
         const db = getFirestore();
         const docRef = doc(db, 'Idpaciente', pacienteId);
         const docSnapshot = await getDoc(docRef);
-        console.log(this.pacienteSeleccionado)
+
         if (docSnapshot.exists()) {
           const datos = docSnapshot.data();
           this.pacienteSeleccionado = {
@@ -42,17 +40,38 @@ export class AnnotatorPage implements OnInit {
             anotador: datos['anotador']
           };
           this.escriturasAnteriores = datos['escrituras'] || [];
+          this.observaciones = this.escriturasAnteriores.slice(); // Copiar las escrituras anteriores a las observaciones
         } else {
           console.log('No se encontró el paciente con el ID:', pacienteId);
-          // Maneja el caso cuando no se encuentra el paciente en la base de datos
+          // Manejar el caso cuando no se encuentra el paciente en la base de datos
         }
       } catch (error) {
         console.log('Error al obtener los datos del paciente:', error);
-        // Maneja el error al obtener los datos del paciente
+        // Manejar el error al obtener los datos del paciente
       }
     } else {
       console.log('No se proporcionó el pacienteId');
-      // Maneja el caso cuando no se proporciona el pacienteId
+      // Manejar el caso cuando no se proporciona el pacienteId
+    }
+
+    // Mostrar las anotaciones al cargar la página
+    this.mostrarAnotaciones();
+  }
+
+  async mostrarAnotaciones() {
+    try {
+      const db = getFirestore();
+      const escriturasRef = doc(db, 'Idpaciente', this.pacienteSeleccionado.id);
+      const escriturasSnapshot = await getDoc(escriturasRef);
+
+      if (escriturasSnapshot.exists()) {
+        const datos = escriturasSnapshot.data();
+        this.observaciones = datos['escrituras'] || [];
+      } else {
+        console.log('No se encontraron anotaciones para el paciente');
+      }
+    } catch (error) {
+      console.log('Error al obtener las anotaciones:', error);
     }
   }
 
@@ -66,38 +85,52 @@ export class AnnotatorPage implements OnInit {
           anotador: escritura,
           escrituras: [...this.escriturasAnteriores, escritura]
         });
-  
+
         // Limpiar el input después de guardar
         this.anotadorInput = '';
         this.escriturasAnteriores.push(escritura);
         this.observaciones.push(escritura); // Agregar la nueva escritura a la lista de observaciones
       } catch (error) {
         console.log('Error al guardar la escritura:', error);
-        // Maneja el error al guardar la escritura
+        // Manejar el error al guardar la escritura
       }
     }
   }
-  
+
+  async eliminarObservacion(observacion: string) {
+    const index = this.observaciones.indexOf(observacion);
+    if (index > -1) {
+      this.observaciones.splice(index, 1); // Eliminar la observación de la lista
+
+      try {
+        const db = getFirestore();
+        const escriturasRef = doc(db, 'Idpaciente', this.pacienteSeleccionado.id);
+        await updateDoc(escriturasRef, {
+          escrituras: this.observaciones
+        });
+      } catch (error) {
+        console.log('Error al eliminar la observación:', error);
+        // Manejar el error al eliminar la observación
+      }
+    }
+  }
+  async abrirNota(nota: string) {
+    this.notaSeleccionada = nota;
+  }
+
+  cerrarNota() {
+    this.notaSeleccionada = null;
+  }
   guardarObservaciones() {
     this.pacienteSeleccionado.anotador = this.observaciones;
     console.log(this.pacienteSeleccionado.anotador);
     // Aquí puedes implementar la lógica para guardar las observaciones
     console.log('Observaciones guardadas:', this.observaciones);
-    // Puedes almacenar las observaciones en una base de datos, enviarlas a un servidor, etc.
-    // También puedes actualizar el campo 'anotador' del pacienteSeleccionado con this.observaciones si deseas reflejarlo en la interfaz.
-    this.pacienteSeleccionado.anotador = this.observaciones;
-    console.log(this.pacienteSeleccionado.anotador);
+    // Puedes almacenar las observaciones en la base de datos u otro medio de almacenamiento
   }
 
   cancelarAnotador() {
     // Aquí puedes implementar la lógica para cancelar y regresar a la pantalla anterior
     this.router.navigate(['/patients']);
-  }
-  eliminarObservacion(observacion: string) {
-    const index = this.observaciones.indexOf(observacion);
-    if (index > -1) {
-      this.observaciones.splice(index, 1); // Eliminar la observación de la lista
-      // Aquí puedes implementar la lógica para eliminar la observación de la base de datos si es necesario
-    }
   }
 }
