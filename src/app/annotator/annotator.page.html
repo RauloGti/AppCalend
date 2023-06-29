@@ -1,32 +1,18 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-title>Anotador</ion-title>
-  </ion-toolbar>
-  <ion-buttons slot="start">
-    <ion-back-button defaultHref="loginscreen" text=""></ion-back-button>
-  </ion-buttons>
-</ion-header>
-
-<ion-content class="ion-padding">
-  <ion-card class="ion-no-margin">
-    <ion-card-header>
-      <ion-card-title>Anotador</ion-card-title>
-      <ion-card-subtitle>Escribe aquí las observaciones de tu paciente</ion-card-subtitle>
-      <ion-label>Paciente: {{ pacienteSeleccionado?.nombre }} {{ pacienteSeleccionado?.apellido }}{{this.observaciones}}</ion-label>
-    </ion-card-header>
-
-    <ion-card-content>
-      <form>
-        
-        <ion-item>
-          
-          <ion-input [(ngModel)]="anotadorInput" name="anotadorInput" placeholder="Escribe aquí tus anotaciones"></ion-input>
-        </ion-item>
-      </form>
-      <div class="btn-wrap">
-        <ion-button fill="solid" shape="round" (click)="guardarEscritura()" class="save-btn">Guardar</ion-button>
-        <ion-button fill="outline" shape="round" color="dark" (click)="cancelarAnotador()">Cancelar</ion-button>
-      </div>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+<ion-card-content>
+  <form>
+    <ion-item>
+      <ion-input [(ngModel)]="anotadorInput" name="anotadorInput" placeholder="Escribe aquí tus anotaciones"></ion-input>
+    </ion-item>
+  </form>
+  <ion-list>
+    <ion-item *ngFor="let observacion of observaciones">
+      <ion-label>{{ observacion }}</ion-label>
+      <ion-checkbox slot="start"></ion-checkbox>
+      <ion-button (click)="eliminarObservacion(observacion)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
+  <div class="btn-wrap">
+    <ion-button fill="solid" shape="round" (click)="guardarEscritura()" class="save-btn">Guardar</ion-button>
+    <ion-button fill="outline" shape="round" color="dark" (click)="cancelarAnotador()">Cancelar</ion-button>
+  </div>
+</ion-card-content>

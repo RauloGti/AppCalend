@@ -9,9 +9,10 @@ import { Firestore, collection, addDoc, collectionData, doc, getDoc, getFirestor
 })
 export class AnnotatorPage implements OnInit {
   pacienteSeleccionado: any;
-  observaciones: any;
+  observaciones: string[] = [];
   anotadorInput: string;
   escriturasAnteriores: string[];
+  
 
   constructor(private router: Router, private route: ActivatedRoute, private firestore: Firestore) {
     this.anotadorInput = '';
@@ -19,6 +20,8 @@ export class AnnotatorPage implements OnInit {
   }
 
   async ngOnInit() {
+    
+  this.observaciones = this.escriturasAnteriores;
     const pacienteId = this.route.snapshot.paramMap.get('pacienteId');
     if (pacienteId) {
       try {
@@ -67,7 +70,7 @@ export class AnnotatorPage implements OnInit {
         // Limpiar el input después de guardar
         this.anotadorInput = '';
         this.escriturasAnteriores.push(escritura);
-        this.guardarObservaciones();
+        this.observaciones.push(escritura); // Agregar la nueva escritura a la lista de observaciones
       } catch (error) {
         console.log('Error al guardar la escritura:', error);
         // Maneja el error al guardar la escritura
@@ -82,13 +85,19 @@ export class AnnotatorPage implements OnInit {
     console.log('Observaciones guardadas:', this.observaciones);
     // Puedes almacenar las observaciones en una base de datos, enviarlas a un servidor, etc.
     // También puedes actualizar el campo 'anotador' del pacienteSeleccionado con this.observaciones si deseas reflejarlo en la interfaz.
-   /* this.pacienteSeleccionado.anotador = this.observaciones;
-    console.log(this.pacienteSeleccionado.anotador);*/
+    this.pacienteSeleccionado.anotador = this.observaciones;
+    console.log(this.pacienteSeleccionado.anotador);
   }
 
   cancelarAnotador() {
     // Aquí puedes implementar la lógica para cancelar y regresar a la pantalla anterior
     this.router.navigate(['/patients']);
   }
-
+  eliminarObservacion(observacion: string) {
+    const index = this.observaciones.indexOf(observacion);
+    if (index > -1) {
+      this.observaciones.splice(index, 1); // Eliminar la observación de la lista
+      // Aquí puedes implementar la lógica para eliminar la observación de la base de datos si es necesario
+    }
+  }
 }
