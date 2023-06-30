@@ -27,6 +27,62 @@
       <div class="content-wrapper">
         <div class="pacientes-wrapper">
           <ion-list [inset]="true">
+            <ion-item button *ngFor="let paciente of pacientes | filter:searchTerm" (click)="seleccionarPaciente(paciente)" [class.selected]="paciente === pacienteSeleccionado">
+              <ion-label> {{ paciente.nombre }} {{ paciente.apellido }} </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+      
+    
+      <div class="re-btn-wrap">
+        <ion-button class="turn-btn" routerLink="/assignturn">
+          <ion-icon name="calendar"></ion-icon>
+        </ion-button>
+        <ion-button class="clipboard-btn" [routerLink]="['/annotator', pacienteSeleccionado?.id]">
+          <ion-icon name="clipboard"></ion-icon>
+        </ion-button>
+        <ion-button class="info-btn round-btn" (click)="mostrarInformacionPaciente()">
+          <ion-icon name="person"></ion-icon> 
+        </ion-button>
+        <ion-button class="delete-btn" (click)="eliminarPaciente()">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<!-- <ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Patients</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaulthref="loginscreen" text=""></ion-back-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-no-margin">
+
+    <ion-card-header>
+      <ion-card-title>Pacientes</ion-card-title>
+      <ion-card-subtitle>Busca, crea, elimina, llama, anota y agenda nuevos turnos. Todo a la mano para gestionar tus pacientes!</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="page-content">
+      
+      <div class="search-create">
+        <ion-searchbar name="search" [(ngModel)]="searchTerm" showCancelButton="focus"></ion-searchbar>
+        <ion-button class="create-btn" routerLink="/createpatient">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="pacientes-wrapper">
+          <ion-list [inset]="true">
             <ion-item button *ngFor="let paciente of pacientes | filter:searchTerm" (click)="seleccionarPaciente(paciente)">
               <ion-label> {{ paciente.nombre }} {{ paciente.apellido }} </ion-label>
             </ion-item>
@@ -43,7 +99,7 @@
           <ion-icon name="clipboard"></ion-icon>
         </ion-button>
         <ion-button class="info-btn round-btn" (click)="mostrarInformacionPaciente()">
-          <ion-icon name="information-circle-outline"></ion-icon>
+          <ion-icon name="person"></ion-icon> 
         </ion-button>
         <ion-button class="delete-btn" (click)="eliminarPaciente()">
           <ion-icon name="trash-outline"></ion-icon>
@@ -52,57 +108,4 @@
 
     </ion-card-content>
   </ion-card>
-</ion-content>
-
-
-
-<!-- 
-  <ion-content class="ion-padding">
-  <ion-card class="ion-no-margin">
-    <ion-card-header>
-      <ion-card-title>Pacientes</ion-card-title>
-      <ion-card-subtitle>Busca, crea, elimina, llama, anota y agenda nuevos turnos. Todo a la mano para gestionar tus pacientes!</ion-card-subtitle>
-    </ion-card-header>
-
-    <ion-card-content>
-      <form>
-
-        <div class="search-create"> 
-          
-         
-          <ion-searchbar name="search" [(ngModel)]="searchTerm" showCancelButton="focus"></ion-searchbar>
-
-
-          <ion-button class="create-btn" routerLink="/createpatient">
-            <ion-icon name="add"></ion-icon>
-          </ion-button>
-        </div>
-
-        <div class="pacientes-wrapper">
-          <ion-list [inset]="true">
-            <ion-item button *ngFor="let paciente of pacientes" (click)="seleccionarPaciente(paciente)">
-              <ion-label> {{ paciente.nombre }} {{ paciente.apellido }} </ion-label>
-            </ion-item>
-          </ion-list>
-        </div>
-        
-     
-        <div class="re-btn-wrap">
-          <ion-button class="turn-btn" routerLink="/assignturn">
-            <ion-icon name="calendar"></ion-icon>
-          </ion-button>
-          <ion-button class="clipboard-btn" routerLink="/annotator">
-            <ion-icon name="clipboard"></ion-icon>
-          </ion-button>
-          <ion-button class="call-btn">
-            <ion-icon name="call-outline"></ion-icon>
-          </ion-button>
-          <ion-button class="delete-btn" (click)="eliminarPaciente()" >
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
-        </div>
-      </form>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
- -->
+</ion-content> -->

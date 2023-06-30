@@ -19,28 +19,19 @@
 <ion-card-content>
   <form>
     <ion-item>
-      <ion-input [(ngModel)]="anotadorInput" name="anotadorInput" placeholder="Escribe aquí tus anotaciones"></ion-input>
+      <ion-textarea class="annotator" [(ngModel)]="anotadorInput" name="anotadorInput" placeholder="Escribe aquí tus anotaciones"></ion-textarea>
     </ion-item>
   </form>
   <ion-list>
     <ion-item *ngFor="let observacion of observaciones">
       <ion-label>{{ observacion }}</ion-label>
-      <ion-checkbox slot="start"></ion-checkbox>
-      <ion-button (click)="eliminarObservacion(observacion)">Eliminar</ion-button>
+      <ion-button class="delete-btn" (click)="eliminarObservacion(observacion)">X
+      </ion-button>
     </ion-item>
   </ion-list>
+
   <div class="btn-wrap">
     <ion-button fill="solid" shape="round" (click)="guardarEscritura()" class="save-btn">Guardar</ion-button>
     <ion-button fill="outline" shape="round" color="dark" (click)="cancelarAnotador()">Cancelar</ion-button>
   </div>
 </ion-card-content>
-<ion-card *ngIf="notaSeleccionada">
-  <ion-card-header>
-    <ion-card-title>Nota</ion-card-title>
-    <ion-card-subtitle>Contenido de la nota</ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    <p>{{ notaSeleccionada }}</p>
-  </ion-card-content>
-  <ion-button fill="outline" shape="round" color="dark" (click)="cerrarNota()">Cerrar</ion-button>
-</ion-card>
