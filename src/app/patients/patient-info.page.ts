@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-patient-info',
   templateUrl: './patient-info.page.html',
-  styleUrls: [],
+  styleUrls: ['./patient-info.page.scss'],
 })
 export class PatientInfoPage {
   @Input() paciente: any;

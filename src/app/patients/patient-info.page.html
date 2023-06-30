@@ -1,4 +1,37 @@
-<ion-header>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Patients Info</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaulthref="loginscreen" text=""></ion-back-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="ion-no-margin">
+
+    <ion-card-header>
+      <ion-card-title>Informacion del paciente</ion-card-title>
+      <ion-card-subtitle>Consulta la información que necesitas de tu paciente en esta pantalla</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="page-content">
+      
+      <ion-label>Nombre: {{ paciente.nombre }}</ion-label>
+      <ion-label>Apellido: {{ paciente.apellido }}</ion-label>
+      <ion-label>Correo: {{ paciente.correo }}</ion-label>
+      <ion-label>DNI: {{ paciente.dni }}</ion-label>
+      <ion-label>Número: {{ paciente.numero }}</ion-label>
+      <ion-label>Edad: {{ paciente.edad }}</ion-label>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+
+
+
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Información del paciente</ion-title>
     <ion-buttons slot="end">
@@ -20,4 +53,4 @@
       <ion-label>Edad: {{ paciente.edad }}</ion-label>
     </ion-card-content>
   </ion-card>
-</ion-content>
+</ion-content> -->
