@@ -207,3 +207,15 @@ page-content {
     margin: 25px;
     color: #bbb;
   }
+
+  .btnCerrar{
+    --background: transparent;
+    --border-radius: 30px;
+    height: 60px;
+    width: 60px;
+    vertical-align: top;
+    ion-icon{
+        height: 30px;
+        width: 30px;
+    }
+  }

@@ -2,9 +2,12 @@
   <ion-toolbar color="primary">
     <ion-title>Patients Info</ion-title>
   </ion-toolbar>
-  <ion-buttons slot="start">
+  <!-- <ion-buttons slot="start">
     <ion-back-button defaulthref="loginscreen" text=""></ion-back-button>
-  </ion-buttons>
+  </ion-buttons> -->
+  <ion-button class="btnCerrar" (click)="dismiss()">
+    <ion-icon name="close"></ion-icon>
+  </ion-button>
 </ion-header>
 
 <ion-content class="ion-padding">
