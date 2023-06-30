@@ -24,7 +24,7 @@
           Filtrar por Nombre
           </ion-button>
         </div>
-        <script src="https://calendar.google.com/calendar/embed?src=calendaap%40gmail.com&ctz=America%2FArgentina%2FBuenos_Aires" style="border: 0" width="800" height="600" frameborder="0" scrolling="no" type="text/javascript"></script>
+        <!--<script src="https://calendar.google.com/calendar/embed?src=calendaap%40gmail.com&ctz=America%2FArgentina%2FBuenos_Aires" style="border: 0" width="800" height="600" frameborder="0" scrolling="no" type="text/javascript"></script>-->
         <ion-list>
           <ng-container *ngFor="let event of events">
             <ion-item *ngIf="event.summary.includes(filterText)">
@@ -38,7 +38,7 @@
           <ion-button class="Default"color="dark"(click)="getCalendarEvents()">
             <ion-icon name="logo-ionic"></ion-icon>
           </ion-button>
-        </div>
+          </div>
       </form>
     </ion-card-content>
   </ion-card>
