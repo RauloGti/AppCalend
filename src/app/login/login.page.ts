@@ -36,7 +36,12 @@ export class LoginPage implements OnInit {
     private alertController: AlertController
 
   ) { }
-//funcion para mostrar un error personalizado al usuario
+
+   /* @function mostrarAlerta
+     @param {mensaje}
+     @descripcion 
+     *la funcion muestra en pantalla un mensaje que recibe por parametro.
+  */
 async mostrarAlerta(mensaje: string) {
   const alert = await this.alertController.create({
     header: 'Advertencia',
@@ -48,28 +53,25 @@ async mostrarAlerta(mensaje: string) {
 }
   ngOnInit() {
   }
+  /*@function login
+   @descripcion
+   *si el form tiene datos extrae email y password y verifica si tiene contenido
+   *autentifica que esos datos sean validos en firebase
+   *si son validos te redirecciona al home
+   *muestra un error si hubo un problema
+  */
   //funcion login para conectar "logica" y validar los datos, importado desde firebase. con el AuthService.y el router para que diga donde redireccionar una vez ingresado al login.s
   async login() {
     if (this.form.valid) {
       const { email, password } = this.form.getRawValue();
-      if (email && password) { // Verificar si email y password no son null
+      if (email && password) { 
         this.authService.login(email, password)
           .then(() => {
             this.router.navigate(['/home']);
           })
-          //catch de errores personalizados de firebase
+          
           .catch((error: any) => {
             let mensaje = 'Error al iniciar sesión. Por favor, verifique los datos proporcionados e intente nuevamente.';
-            // if (error.code === 'auth/user-not-found') {
-            //   mensaje = 'Usuario no encontrado. Por favor, verifica tus credenciales.';
-            // } else if (error.code === 'auth/wrong-password') {
-            //   mensaje = 'Usuario o Contraseña incorrecta. Por favor, verifica tus credenciales.';
-            // } else if (error.code === 'auth/invalid-email') {
-            //   mensaje = 'Correo electrónico inválido. Por favor, verifica tus credenciales.';
-            // }
-            // else if (error.code === 'auth/null-password') {
-            //   mensaje = 'Escribe un contraseña';
-            // }
             this.mostrarAlerta(mensaje)
           });
       }
@@ -79,51 +81,36 @@ async mostrarAlerta(mensaje: string) {
     }
   }
   
-    
-//funcion para el inicio de sesion con google
+    /*
+      @function loginWithGoogle
+      @descripcion
+      *llama al la fuincion de autentificacion con google de firebase y pasa el proveedor de autentificacion de google como parametro
+      *cuando inicia bien con la cuenta de google guarda las credenciales 
+      *si al credencias no es nula guadar los token de acceso en una variable 
+      *redirecciona al home
+      *guarda errores    
+    */
+
   loginWithGoogle(){
     signInWithPopup(auth, provider)
   .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
+    
     const credential = GoogleAuthProvider.credentialFromResult(result);
     if (credential != null){
       const accessToken = credential.accessToken;
       console.log(accessToken);
-       // Aquí tienes el token de acceso que puedes utilizar para realizar solicitudes a la API de Google Calendar.
-
-        // También se puede obtener información adicional del usuario utilizando getAdditionalUserInfo(result)
-        // const additionalUserInfo = getAdditionalUserInfo(result);
     }
     const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
+    
     this.router.navigate(['/home']);
   }).catch((error) => {
-    // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
-    // The email of the user's account used.
     const email = error.customData.email;
-    // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
   });
-  }
+  }
 
-  //funcion que muestra un popup con un mensaje de espera al ingreso del sistema, vinculado al boton de login.
-  async showLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Ingresando al Sistema, esto puede demorar unos segundos...',
-      duration: 3000
-    });
-  
-    await loading.present();
-  
-    // Simular una tarea asincrónica (por ejemplo, una llamada a la API)
-    // Puedes reemplazar esto con tu lógica de inicio de sesión
-    setTimeout(() => {
-      loading.dismiss();
-    }, 3000);
-  }
+  
+  
 }
-

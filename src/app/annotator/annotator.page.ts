@@ -19,6 +19,17 @@ export class AnnotatorPage implements OnInit {
     this.escriturasAnteriores = [];
   }
 
+  /*@function ngOnInit(ionic)
+      @descripcion
+      *declara una variable y la inicializa con una ruta  para traer el pacienteID 
+      *si picienteId no es null entra en try abre la conecion con la base referido a una collecion en concreto y un documento
+      *si evalua si existe crea una variable y guarda los datos de la base ahi , llama al paciente seleccionado 
+      y guarda  sus datos segun los campos de la base de datos y los guarda en variables
+      * guarda en escriturasAnteriores las almacenadas en la base de datos
+      *asinga una copia del contenido a observaciones con el metodo slice()
+      * muestra un mesaje de error si no se encontro el paciente o si tuvo error al encontrar sus datos o si no selecciono a ningun paciente
+      * llama al mostrarAnotaciones()     
+    */
   async ngOnInit() {
     const pacienteId = this.route.snapshot.paramMap.get('pacienteId');
     if (pacienteId) {
@@ -58,6 +69,15 @@ export class AnnotatorPage implements OnInit {
     this.mostrarAnotaciones();
   }
 
+  /*@function mostrarAnotaciones
+    @descripcion
+    *abre la concion con la base 
+    *consulta por una collecion en especifico y un documento en especifico
+    * copia la informacion y la guarda en escrituras snapshot
+    * si existe guarda en una variable la informacion del snapshot
+    * trae las escrituras de la base y las guarda en observaciones
+    * muestra errores si no encontro anotaciones o si hubo un error
+  */
   async mostrarAnotaciones() {
     try {
       const db = getFirestore();
@@ -75,6 +95,16 @@ export class AnnotatorPage implements OnInit {
     }
   }
 
+  /*@function guardaEscritura
+  @descripcion
+  *declara una variable y la iniciacliza con el input de anotador tambien llama a trim 
+  *si escritura existe try, conecta con la base de datos
+  * llama a una collecion y documentos especificos
+  * actualiza el docucumento refecieniado por escrituras ref 
+  * y se actualiza la informacion en base a al documento guardado en escrituras ref
+  * limpia el input y agrega las escrituras a escrituras anteriores y a observaciones
+  * muestra un mensaje si hubo un error al guardar
+*/
   async guardarEscritura() {
     const escritura = this.anotadorInput.trim();
     if (escritura) {
@@ -97,6 +127,14 @@ export class AnnotatorPage implements OnInit {
     }
   }
 
+  /*@function eliminarObservacion
+@param recibe una {observacion}
+ @descripcion
+ * declara una variable yla inicializa en el index de la array observaciones
+ *si el index es mayor a -1 borra la observacion de la array
+ *abre una conexion con la base y una collecion y docuemento en particular y actualiza el campo de la base con el un dato vacio
+ *muestra un error si hubo un error ala eliminar la observacion
+*/
   async eliminarObservacion(observacion: string) {
     const index = this.observaciones.indexOf(observacion);
     if (index > -1) {

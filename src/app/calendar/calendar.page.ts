@@ -34,7 +34,15 @@ export class CalendarPage {
   constructor() {
     this.loadGapi();
   }
- // Método para cargar la API de gapi
+ 
+  /*@function loadGapi
+  @description
+  *se crea un script con document.createElement(), termina creando un scrip en el HTML
+  * asigna la url de la api de google calendar al scrip.src
+  * cuando se ejecuta el scrip llama a la funcion al contenido de la funcion onload
+  * con gapi.load carga el cliente de la API de google
+  *inserta el scrip y lo agrega al cuerpo del documento
+  */
   private loadGapi() {
     const script = document.createElement('script');
     script.src = 'https://apis.google.com/js/api.js';
@@ -43,7 +51,14 @@ export class CalendarPage {
     };
     document.body.appendChild(script);
   }
-  // Método para inicializar el cliente de gapi
+
+  /*@initializeGapiClient
+  @descripcion
+  *se  usa gapi.clienti.init() para inicializar al cliente de la api de google
+  *se pasan dos propiedades apikey y discoveryDocs y se les asignan API_KEY y DISCOVERY_DOC respectivamente
+  *despues establece el gapiInited en true
+  *llamala funcion maybeEnableButtons()
+  */
   private initializeGapiClient() {
     gapi.client.init({
       apiKey: this.API_KEY,
@@ -54,21 +69,24 @@ export class CalendarPage {
     });
   }
 
-  private gisLoaded() {
-    this.tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: this.CLIENT_ID,
-      scope: this.SCOPES,
-      callback: '', // defined later
-    });
-    this.maybeEnableButtons();
-  }
-// Método para habilitar/deshabilitar los botones según la autenticación del usuario
+  /*@funcion mayEnableButtons
+@descripcion 
+*evalua si el exite y no es null el gapiInited
+*/
   private maybeEnableButtons() {
     if (this.gapiInited) {
       // Aquí puedes manipular la visibilidad de los botones según la autenticación del usuario
     }
   }
- // Método para autorizar y obtener el token de acceso
+ 
+  /*@function authorize
+ @description
+ *una vez que se complete el proceso de autorizacion y reciba un resp se el ejecuta la funcion de callback
+ *se analiza si hay algun error en la resp y ocurrio lanza una exepcion
+ *se hace una veridicacion para ver si se obtubo un token 
+ *si el token es null se solicita de nuevo 
+ *si ya se tiene el token se hace una solicitud vacia
+ */
   public async authorize(): Promise<void> {
     this.tokenClient.callback = async (resp: any) => {
       if (resp.error !== undefined) {
@@ -83,7 +101,14 @@ export class CalendarPage {
       this.tokenClient.requestAccessToken({ prompt: '' });
     }
   }
- // Método para cerrar sesión y revocar el token de acceso
+ 
+  /*@ function signOut
+  @descripcion
+  * se llama al token de acceso actual
+  *se evalua si es null 
+  * se revocan e invalida el token de acceso 
+  * se elimina el token de acceso almacenado en el cliente de google
+  */
   public async signOut(): Promise<void> {
     const token = gapi.client.getToken();
     if (token !== null) {
@@ -92,22 +117,19 @@ export class CalendarPage {
     }
     // Aquí puedes realizar acciones después de cerrar sesión
   }
-  public async createCalendarEvent(event: any): Promise<any> {
-    try {
-      const response = await gapi.client.calendar.events.insert({
-        calendarId: 'calendaap@gmail.com',
-        resource: event,
-      });
-      console.log('Evento creado exisitosamente:', response.result);
-      return response.result;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  }
-  
-    // Método para traer un nuevo evento en Google Calendar
 
+  /*@ function getCalendarEvents
+    @ descripcion
+    *se crea una instacia de date()
+    *se guarda en una varible una instancia de date() para obtener el año,mes,dia, hora minima en el formato ISOString
+    *se usa gapi.client.calendar.events.list()para solicitar a la API de calendar los oventos del calendario 
+    * se mandan diferentes parametros como el id del calendario , los maximos resultados o el orden 
+    * se muestra response en consola
+    * se le asigna a events los datos de response
+    * *si hay algun error se captura y se muestra en consola, tambien se coloca el array de events como vacio
+
+  
+  */
     public async getCalendarEvents(): Promise<void> {
       try {
         // Obtener la fecha y hora actual
@@ -134,13 +156,13 @@ export class CalendarPage {
         this.events = []; // Manejar el error y asignar un arreglo vacío si es necesario
       }
     }
-      // Método para filtrar los eventos según el texto de búsqueda
-  filterEvents() {
-    this.filteredEvents = this.events.filter(event =>
-      event.summary.toLowerCase().includes(this.filterText.toLowerCase())
-    );
-  }
-   // Método para filtrar los eventos según el término de búsqueda
+   
+    /*@funtion applyfilter
+      @descripcion
+      *se usa filter() para crear una array de events con los elementos que cumplen con el filtro
+      *se verifica por cada elemento que se haga bien el filtrado
+      *si cumple con las condicion se agregan a filteredEvents
+      */
    applyFilter() {
     this.filteredEvents = this.events.filter(event =>
       event.summary.toLowerCase().includes(this.searchTerm.toLowerCase())

@@ -93,72 +93,7 @@ export class RegisterPage implements OnInit {
                 this.mostrarAlerta('El correo electrónico ya está en uso.');
               }
             });
-      }
-    }
-
-
-    // register() {
-
-//     if (email && password) { // Verificar si email y password no son null
-//       this.auth.register(email, password)
-//         .then(() => {
-//           this.router.navigate(['/login']);
-//         })
-//         .catch(error => {
-//           console.error(error);
-//           if (error.code === 'auth/weak-password') {
-//             this.mostrarError('La contraseña es débil. Debe tener al menos 6 caracteres.');
-//           } else if (error.code === 'auth/email-already-in-use') {
-//             this.mostrarError('El correo electrónico ya está en uso.');
-//           } else {
-//             this.mostrarError('Ocurrió un error al registrar el usuario.');
-//           }
-//         });
-//         }
-
-// if (email && password) { // Verificar si email y password no son null
-//   this.auth.register(email, password)
-//     .then(() => {
-//       this.router.navigate(['/login']);
-//     })
-//     .catch(error => {
-//       console.error(error);
-//       this.mostrarAlerta( 'Usuario registrado correctamente');
-//     });
-// }
-
-
-    //   if (this.form.valid) {
-    //     const { email, password } = this.form.getRawValue();
-    //     //validar que pass y repass sean iguales
-    //     if (email && password) { // Verificar si email y password no son null
-    //       this.auth.register(email, password)
-    //         .then(() => {
-    //           this.router.navigate(['/login']);
-    //         })
-    //         .catch(error => {
-    //           console.error(error);
-             
-    //         });
-    //     }
-    //   }
-    // }
+      }
+    }
 } 
-  
-  /*register(){
-    if(this.form.valid){
-      const { email, password } = this.form.getRawValue();
-      this.auth.register(email, password)
-      .then(() => {
-        this.router.navigate(['/home']);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    } else {
-        this.form.markAllAsTouched();
-    }
-  }
-}
-*/
 

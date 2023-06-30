@@ -23,6 +23,12 @@ export class CreatepatientPage implements OnInit {
   inputTelefono:string='';
 
 
+  /* @function mostrarAlerta
+     @param {mensaje}
+     @descripcion 
+     *la funcion muestra en pantalla un mensaje que recibe por parametro.
+
+  */
   async mostrarAlerta(mensaje: string) {
     const alert = await this.alertController.create({
       header: 'Advertencia',
@@ -33,6 +39,10 @@ export class CreatepatientPage implements OnInit {
     await alert.present();
   }
 
+  /*@function limpiarCampos
+    @descripcion
+    * vacia todos los campos de la funcion.
+  */
   limpiarCampos() {
     this.inputNombre = '';
     this.inputApellido = '';
@@ -42,6 +52,17 @@ export class CreatepatientPage implements OnInit {
     this.inputTelefono = '';
   }
 
+  /*@function creardatos
+    @descripcion
+    *evalua que todos lo campos esten llenos
+    *evalua que dni sea un numero y si no muestra un error en pantalla
+    *evalua que edad sea un numero y si no muestra un error en pantalla
+    *evalua que el correo contenga @ y .com y si no muestra un error en pantalla
+    *evalua que el telefono sea un numero y si no muestra un error en pantalla
+    *declara un objeto con campos y asigna los inputs a eso campos
+    *declara un objeto y lo iguala a una colleccion de firebase
+    *añade a la collecion el objeto anterior con la sus campos
+  */
  creardatos() {
   if (
     this.inputNombre.trim() === '' ||
@@ -98,18 +119,5 @@ export class CreatepatientPage implements OnInit {
   }
 
 }
-  //FUNCION QUE ELIMINA
-//   EliminarDatos(){
-
-//     const placeDocRef = doc(this.firestore, `2azxOTkLwjOGtbKiI86g/2zaZY6us7VUc22xjQ87v`);
-//     deleteDoc(placeDocRef);
-
-//     try {
-//       console.log("Se borro la data")
-
-//     } catch(error) {
-//       console.log(error)
-//     } 
-
  
 
