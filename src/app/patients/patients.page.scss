@@ -237,6 +237,23 @@ ion-item{
     }
 }
 
+.pacientes-wrapper ion-item.selected {
+    --ion-background-color: blue;
+    color: white;
+    font-size: 25px;
+  }
+
+.info-btn {
+    --background: #099bc7;
+    --border-radius: 30px;
+    height: 60px;
+    width: 60px;
+    ion-icon{
+        height: 30px;
+        width: 30px;
+    }
+}
+
 .search-create{
     display: flex;
     align-items: center;
@@ -253,3 +270,16 @@ ion-item{
     }
     }
 }
+
+page-content {
+    .pacientes-wrapper {
+      ion-list {
+        ion-item {
+          &.selected {
+            background-color: lightblue;
+            color: white;
+          }
+        }
+      }
+    }
+  }

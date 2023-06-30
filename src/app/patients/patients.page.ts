@@ -106,13 +106,16 @@ export class PatientsPage implements OnInit {
     }
   }
   async mostrarInformacionPaciente() {
-    const modal = await this.modalController.create({
-      component: PatientInfoPage,
-      componentProps: {
-        paciente: this.pacienteSeleccionado
-      }
-    });
-    return await modal.present();
+    if(this.pacienteSeleccionado){
+      const modal = await this.modalController.create({
+        component: PatientInfoPage,
+        componentProps: {
+          paciente: this.pacienteSeleccionado
+        }
+      });
+      return await modal.present();
+    }
+    
   }
   
 
